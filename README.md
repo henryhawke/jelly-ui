@@ -1,4 +1,4 @@
-# Jelly UI 🪼
+# Jelly UI
 
 Jelly UI is a **zero-runtime-dependency** Web Components library for soft,
 tactile product interfaces. It combines real form controls — native focus,
