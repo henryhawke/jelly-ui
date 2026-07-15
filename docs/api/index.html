@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Jelly UI — API Reference</title>
+    <meta name="description" content="The complete Jelly UI API reference: every attribute, property, method, event, slot, shadow part, CSS custom property and keyboard map." />
+    <!-- No favicon: an empty data URI stops the browser requesting /favicon.ico -->
+    <link rel="icon" href="data:," />
+
+    <!-- Apply the saved theme before first paint so there is no flash -->
+    <script>
+      const savedMode = localStorage.getItem('jelly-docs-theme');
+      if (savedMode === 'light' || savedMode === 'dark') {
+        document.documentElement.setAttribute('data-jelly-mode', savedMode);
+      }
+    </script>
+
+    <!-- Page styles: shared chrome + reference-specific (see docs/README.md) -->
+    <link rel="stylesheet" href="../docs/shared/site.css" />
+    <link rel="stylesheet" href="../docs/api/reference.css" />
+
+    <!-- OPTIONAL performance hint, not an import: the page loads ../package.js
+         (via docs/api/index.js), which re-exports the built bundle. Preloading the
+         bundle here fetches it in parallel so the components register sooner.
+         Deleting these lines changes nothing except first-load speed. -->
+    <link rel="modulepreload" href="../package.js" />
+    <link rel="modulepreload" href="../dist/jelly.js" />
+  </head>
+
+  <body>
+    <a class="skip" href="#sections">Skip to reference</a>
+
+    <!-- The shared top bar (styles in site.css) — the same bar the showcase
+         uses, plus the mobile-only sidebar toggle -->
+    <nav class="subnav" aria-label="Site">
+      <a class="subnav-brand" href="../">Jelly UI <span class="subnav-ver">v1.0</span></a>
+
+      <jelly-button id="navToggle" size="small" variant="platinum" shape="square"
+                    aria-expanded="false" aria-controls="sidebar">Components ▾</jelly-button>
+
+      <div class="subnav-links">
+        <jelly-button size="small" variant="platinum" shape="square" data-subnav-showcase>Showcase</jelly-button>
+        <jelly-button size="small" variant="azure" shape="square" data-subnav-api aria-current="page">API reference</jelly-button>
+        <jelly-icon-button id="themeToggle" size="small" variant="platinum" shape="square" label="Switch theme"></jelly-icon-button>
+      </div>
+    </nav>
+
+    <div class="layout">
+      <nav class="sidebar" id="sidebar" aria-label="Components">
+        <div id="nav"><!-- generated from docs/content/data.js --></div>
+      </nav>
+
+      <main>
+        <section class="intro">
+          <h1>API Reference</h1>
+          <p>
+            Every attribute, property, method, event, slot, shadow part, CSS custom
+            property and keyboard map — generated from <code>docs/content/data.js</code>.
+            For live, interactive examples, head to the
+            <a href="../">component showcase</a>.
+          </p>
+        </section>
+
+        <div id="sections"><!-- generated from docs/content/data.js --></div>
+
+        <footer>
+          Jelly UI — dependency-free Web Components, one script tag to consume.
+          To document a component, edit its descriptor in <code>docs/content.js</code>
+          and run <code>npm run docs</code> — it reconciles the prose against the
+          component TypeScript and regenerates this page's data.
+        </footer>
+      </main>
+    </div>
+
+    <script type="module" src="../docs/api/index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Jelly UI — Soft Web Components</title>
+    <meta
+      name="description"
+      content="Jelly UI is a dependency-free Web Components library for tactile product interfaces: soft-body physics, real form controls, dark mode, RTL and WCAG AA accessibility."
+    />
+    <!-- No favicon: an empty data URI stops the browser requesting /favicon.ico -->
+    <link rel="icon" href="data:," />
+
+    <!-- Apply the saved theme before first paint so there is no flash -->
+    <script>
+      const savedMode = localStorage.getItem('jelly-docs-theme');
+      if (savedMode === 'light' || savedMode === 'dark') {
+        document.documentElement.setAttribute('data-jelly-mode', savedMode);
+      }
+    </script>
+
+    <!-- Page styles: shared chrome + showcase-specific (see docs/README.md) -->
+    <link rel="stylesheet" href="./docs/shared/site.css" />
+    <link rel="stylesheet" href="./docs/showcase/showcase.css" />
+
+    <!-- OPTIONAL performance hint, not an import: the page loads ./package.js
+         (via docs/showcase/index.js), which re-exports the built bundle. Preloading
+         the bundle here fetches it in parallel so the components register
+         sooner. Deleting these lines changes nothing except first-load speed. -->
+    <link rel="modulepreload" href="./package.js" />
+    <link rel="modulepreload" href="./dist/jelly.js" />
+  </head>
+
+  <body>
+    <a class="skip" href="#panels">Skip to components</a>
+
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+    <main id="top">
+      <section class="hero">
+        <!-- Depth layers: drifting light blobs + film grain, all decorative -->
+        <div class="hero-backdrop" aria-hidden="true">
+          <i class="glow g1"></i>
+          <i class="glow g2"></i>
+          <i class="glow g3"></i>
+          <i class="grain"></i>
+        </div>
+
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <h1>It's okay to be<br />a little jelly</h1>
+            <p class="lede">
+              Jelly UI is a dependency-free Web Components library for soft, tactile product
+              interfaces. Real form controls meet soft-body physics, with dark mode,
+              right-to-left support and WCAG AA color tokens built in.
+            </p>
+
+            <div class="hero-stats" role="list" aria-label="Library highlights">
+              <jelly-badge role="listitem" variant="white" size="large" outline>0 dependencies</jelly-badge>
+              <jelly-badge role="listitem" variant="white" size="large" outline data-stat-count>40 custom elements</jelly-badge>
+              <jelly-badge role="listitem" variant="white" size="large" outline>1 script tag</jelly-badge>
+              <jelly-badge role="listitem" variant="white" size="large" outline>WCAG AA</jelly-badge>
+              <jelly-badge role="listitem" variant="white" size="large" outline>Dark mode</jelly-badge>
+              <jelly-badge role="listitem" variant="white" size="large" outline>RTL</jelly-badge>
+            </div>
+
+            <div class="hero-links">
+              <jelly-button variant="mint" size="large" shape="square" data-hero-scroll style="--jelly-fill: #2ABC74;">Scroll the showcase ↓</jelly-button>
+              <jelly-button
+                class="hero-ghost"
+                size="large"
+                shape="square"
+                data-hero-api
+                style="--jelly-fill: color-mix(in srgb, #FFFFFF 26%, var(--jelly-color-background-azure, #0077CC)); --jelly-label: #FFFFFF;"
+              >Read the API reference →</jelly-button>
+            </div>
+
+            <div class="quickstart">
+              <div class="quickstart-head" aria-hidden="true">
+                <i></i><i></i><i></i>
+                <code>index.html</code>
+              </div>
+              <pre><code>&lt;script type="module" src="https://jelly-ui.com/package.js"&gt;&lt;/script&gt;
+
+&lt;jelly-theme mode="auto"&gt;
+  &lt;jelly-button variant="mint"&gt;Publish&lt;/jelly-button&gt;
+&lt;/jelly-theme&gt;</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Big decorative Lottie illustration seated at the bottom of the blue;
+             loaded lazily by docs/lottie/index.js. Presentational, so hidden from AT. -->
+        <div class="hero-anim" aria-hidden="true">
+          <div id="heroLottie" class="hero-lottie"></div>
+        </div>
+      </section>
+
+      <!-- The shared top bar (styles in site.css): sits just below the hero
+          and sticks to the top while scrolling the showcase -->
+      <nav class="subnav" aria-label="Site">
+        <a class="subnav-brand" href="#top">Jelly UI <span class="subnav-ver">v1.0</span></a>
+
+        <div class="subnav-links">
+          <jelly-button size="small" variant="azure" shape="square" data-subnav-showcase aria-current="page">Showcase</jelly-button>
+          <jelly-button size="small" variant="platinum" shape="square" data-subnav-api>API reference</jelly-button>
+          <jelly-icon-button id="themeToggle" size="small" variant="platinum" shape="square" label="Switch theme"></jelly-icon-button>
+        </div>
+      </nav>
+
+      <div id="panels"><!-- generated from docs/content/data.js --></div>
+
+      <footer class="outro">
+        <!-- A celebratory send-off, lazy-loaded like the hero illustration -->
+        <div class="outro-anim" aria-hidden="true">
+          <div id="footerLottie" class="footer-lottie"></div>
+        </div>
+
+        <h2>You made it to the end.</h2>
+        <p>
+          Jelly UI — dependency-free Web Components, one script tag to consume.
+          Everything you just scrolled is live; the complete reference is at
+          <a href="./api/">/api</a> and both pages are generated from
+          <code>docs/content/content.js</code>, reconciled against the TypeScript sources.
+        </p>
+      </footer>
+    </main>
+
+    <script type="module" src="./docs/showcase/index.js"></script>
+  </body>
+</html>
