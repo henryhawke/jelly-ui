@@ -14,7 +14,7 @@ docs.
 The other files are plumbing you rarely touch:
 
 - `docs/api/index.js` — renders `data.js` into the reference tables
-- `docs/showcase/index.js` — renders the showcase (snap-scrolled sections, one per component)
+- `docs/showcase/index.js` — renders the showcase (one section per component)
 - `docs/shared/common.js` — the shared theme toggle
 - `docs/lottie/index.js` — lazy-loads the decorative Lottie illustrations (hero + outro)
 - `docs/shared/site.css` — shared chrome: tokens, the top bar, code blocks, placeholders
@@ -58,7 +58,7 @@ no longer exposes (or miss a new one), so the reference can't silently drift.
    should not get their own panel (child-only elements like `jelly-option`)
    go in `NO_PANEL` instead — documented on the reference,
    skipped by the showcase.
-3. **Reload.** Each panel is one snap-scrolled section; nothing else to wire.
+3. **Reload.** Each panel is one section; nothing else to wire.
 
 ## Change an existing demo
 

@@ -2,8 +2,7 @@
  * The showcase renderer (index.html)
  *
  * One live preview per component. Each component is a viewport-height "panel"
- * (a CSS scroll-snap section - stop scrolling and the page aligns to the
- * nearest one). The attribute table beside the preview shows EVERY option of
+ * The attribute table beside the preview shows EVERY option of
  * every attribute at once, rendered with the library's own components
  * (jelly-badge for enums / booleans / numbers, jelly-input for text), so the
  * docs dogfood what they document. Clicking a badge - or typing into a text
@@ -559,7 +558,7 @@ document.getElementById('panels').innerHTML = ordered.map(panelMarkup).join('');
 const panels = [...document.querySelectorAll('.panel')];
 
 // Attach the descriptor + config to each panel. The panels are fixed
-// one-viewport sections (CSS scroll-snap aligns them), so there is no
+// one-viewport sections, so there is no
 // per-panel scroll budget to precompute.
 panels.forEach((panel) => {
   panel.item = ordered[+panel.dataset.index];
@@ -569,7 +568,6 @@ panels.forEach((panel) => {
 // Component panels publish their tag in the URL. The hero represents the
 // unfragmented showcase URL, so returning to it removes only the hash while
 // preserving the current path and query string.
-let pinningPanel = false;
 const hero = document.querySelector('.hero');
 const hashSections = [hero, ...panels].filter(Boolean);
 
@@ -620,9 +618,9 @@ function onScroll () {
     progress.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
 
     // IntersectionObserver can skip intermediate states during a long smooth
-    // or snap scroll. Check the hero here as well so arriving at the top always
+    // scroll. Check the hero here as well so arriving at the top always
     // clears the last component fragment before a refresh.
-    if (!pinningPanel && heroIsActive()) {
+    if (heroIsActive()) {
       clearShowcaseHash();
     }
   });
@@ -696,70 +694,7 @@ function syncSectionHash () {
 }
 
 const activeObserver = new IntersectionObserver(() => {
-  if (pinningPanel) {
-    return;
-  }
-
   syncSectionHash();
 }, { rootMargin: '-45% 0px -45% 0px' });
 
 hashSections.forEach((section) => activeObserver.observe(section));
-
-/*
- * Deep links can arrive before the target panel is mounted, and scroll snap
- * may settle on a nearby panel while late layout finishes. Mount the target,
- * then pin it for a few frames while suppressing active-section hash updates.
- */
-function scrollToPanel (id) {
-  const target = document.getElementById(id);
-
-  if (!target?.classList.contains('panel')) {
-    return;
-  }
-
-  pinningPanel = true;
-
-  // A late panel's absolute position depends on every earlier panel's real
-  // content height. Deep-linked loads trade the usual lazy mount for a stable
-  // one-time layout so the target cannot drift as intermediate panels appear.
-  panels.forEach(mountPanel);
-
-  const headerH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 0;
-  const previousSnap = document.documentElement.style.scrollSnapType;
-
-  // Prevent mandatory snap from choosing an intermediate panel while the
-  // browser is still realizing the long lazy-rendered page.
-  document.documentElement.style.scrollSnapType = 'none';
-
-  let stable    = 0;
-  let tries     = 0;
-
-  const pin = () => {
-    const error = Math.round(target.getBoundingClientRect().top - headerH);
-    const top   = Math.max(0, Math.round(window.scrollY + error));
-
-    window.scrollTo({ top, left: 0, behavior: 'auto' });
-
-    stable = Math.abs(error) <= 1 ? stable + 1 : 0;
-    tries += 1;
-
-    if (stable < 3 && tries < 60) {
-      requestAnimationFrame(pin);
-      return;
-    }
-
-    document.documentElement.style.scrollSnapType = previousSnap;
-
-    requestAnimationFrame(() => {
-      history.replaceState(null, '', `#${id}`);
-      pinningPanel = false;
-    });
-  };
-
-  requestAnimationFrame(pin);
-}
-
-// Deep links resolve after render
-if (location.hash) {
-  scrollToPanel(location.hash.slice(1));
-}

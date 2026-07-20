@@ -1,19 +1,9 @@
 /*
- * Showcase-only styles (index.html): the hero, the snap-scrolled component
- * panels, the attribute table, the preview stage and the outro. Shared page
+ * Showcase-only styles (index.html): the hero, the component panels, the
+ * attribute table, the preview stage and the outro. Shared page
  * chrome (tokens, the top bar, code blocks, placeholders) lives in
  * docs/site.css.
  */
-
-/* Each section is a scroll-snap stop: keep scrolling freely (fast flicks
-   sail across several sections) and when you stop, the page settles onto
-   the nearest section so it sits aligned under the sticky top bar
-   (scroll-padding-top in site.css supplies the offset). */
-html { scroll-snap-type: y mandatory; }
-
-.hero  { scroll-snap-align: start; }
-.panel { scroll-snap-align: start; }
-.outro { scroll-snap-align: end; }
 
 /* The showcase panels render from docs/data.js; hold their space so the
    footer doesn't flash at the top and then leap away */
@@ -247,9 +237,8 @@ html { scroll-snap-type: y mandatory; }
 }
 
 /* ============================ Panels ============================ */
-/* Each panel is one viewport-height section (minus the sticky top bar) and a
-   scroll-snap stop, so stopping anywhere settles the nearest component neatly
-   under the bar. The table and preview are fully interactive: click an option
+/* Each panel is at least one viewport-height section (minus the sticky top
+   bar). The table and preview are fully interactive: click an option
    badge or type into a text field and the preview + snippet update. */
 .panel {
   position:      relative;
@@ -520,10 +509,8 @@ html { scroll-snap-type: y mandatory; }
 
 /* ============================ Mobile ============================ */
 /* Narrow screens stack each panel naturally: sections grow to their content
-   (so snap paging would fight the read) and the preview leads the docs. */
+   and the preview leads the docs. */
 @media (max-width: 900px) {
-  html { scroll-snap-type: none; }
-
   .panel { min-height: 0; }
 
   .scene { display: block; }
