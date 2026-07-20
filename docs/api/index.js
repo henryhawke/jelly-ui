@@ -11,11 +11,13 @@ import '../../package.js';
 
 import { escapeHTML }       from '../shared/common.js';
 import { formatInlineCode } from '../shared/common.js';
+import { wireMotionToggle } from '../shared/common.js';
 import { wireThemeToggle }  from '../shared/common.js';
 
 import { COMPONENTS }       from '../content/data.js';
 import { GROUP_ORDER }      from '../content/data.js';
 
+wireMotionToggle(document.getElementById('motionToggle'));
 wireThemeToggle(document.getElementById('themeToggle'));
 
 // The shared top bar's page links are jelly-buttons, not anchors - wire their

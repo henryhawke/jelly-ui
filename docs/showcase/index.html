@@ -11,11 +11,15 @@
     <!-- No favicon: an empty data URI stops the browser requesting /favicon.ico -->
     <link rel="icon" href="data:," />
 
-    <!-- Apply the saved theme before first paint so there is no flash -->
+    <!-- Apply saved visual preferences before first paint so there is no flash -->
     <script>
       const savedMode = localStorage.getItem('jelly-docs-theme');
       if (savedMode === 'light' || savedMode === 'dark') {
         document.documentElement.setAttribute('data-jelly-mode', savedMode);
+      }
+      const savedMotion = localStorage.getItem('jelly-docs-reduced-motion');
+      if (savedMotion === 'reduce' || savedMotion === 'no-preference') {
+        document.documentElement.setAttribute('data-jelly-motion', savedMotion);
       }
     </script>
 
@@ -99,12 +103,17 @@
       <!-- The shared top bar (styles in site.css): sits just below the hero
           and sticks to the top while scrolling the showcase -->
       <nav class="subnav" aria-label="Site">
-        <a class="subnav-brand" href="#top">Jelly UI <span class="subnav-ver">v1.0</span></a>
+        <a class="subnav-brand" href="#top">Jelly UI <span class="subnav-ver">v1.1</span></a>
 
         <div class="subnav-links">
           <jelly-button size="small" variant="azure" shape="square" data-subnav-showcase aria-current="page">Showcase</jelly-button>
           <jelly-button size="small" variant="platinum" shape="square" data-subnav-api>API reference</jelly-button>
-          <jelly-icon-button id="themeToggle" size="small" variant="platinum" shape="square" label="Switch theme"></jelly-icon-button>
+          <jelly-tooltip text="Motion: system setting" placement="bottom" size="small">
+            <jelly-icon-button id="motionToggle" size="small" variant="platinum" shape="square" label="Motion settings"></jelly-icon-button>
+          </jelly-tooltip>
+          <jelly-tooltip text="Theme: system" placement="bottom" size="small">
+            <jelly-icon-button id="themeToggle" size="small" variant="platinum" shape="square" label="Switch theme"></jelly-icon-button>
+          </jelly-tooltip>
         </div>
       </nav>
 

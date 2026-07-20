@@ -113,8 +113,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .close { transition: none; }
+  :host-context(html:not([data-jelly-motion="no-preference"])) .close { transition: none; }
 }
+
+:host-context([data-jelly-motion="reduce"]) .close { transition: none; }
 
 .close:focus-visible {
   outline:        2px solid var(--jelly-ring-color);

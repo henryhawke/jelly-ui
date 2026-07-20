@@ -165,3 +165,9 @@ footer {
   [dir="rtl"] .sidebar { transform: translateX(104%); }
   [dir="rtl"] .sidebar.open { transform: none; }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-jelly-motion="no-preference"]) .sidebar { transition: none; }
+}
+
+:root[data-jelly-motion="reduce"] .sidebar { transition: none; }

@@ -14,6 +14,8 @@
  *   initLottie(document.getElementById('heroLottie'), './docs/lottie/hero-lottie.json');
  */
 
+import { prefersReducedMotion } from '../../package.js';
+
 // The player lives next to this module at runtime: the dev server streams it
 // from node_modules/lottie-web, and the site build copies the same file into
 // _site/docs/lottie/ - so this URL holds in both.
@@ -54,8 +56,6 @@ const whenIdle = () => new Promise((resolve) => {
 });
 
 function render (container, animationURL) {
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   whenIdle()
     .then(loadPlayer)
     .then((lottie) => {
@@ -66,18 +66,31 @@ function render (container, animationURL) {
       const animation = lottie.loadAnimation({
         container,
         renderer:  'svg',
-        loop:      !reduced,
-        autoplay:  !reduced,
+        loop:      !prefersReducedMotion(),
+        autoplay:  !prefersReducedMotion(),
         path:      animationURL,
         rendererSettings: { progressiveLoad: true },
       });
 
       container.dataset.ready = 'true';
 
-      // Reduced motion: show the illustration, but hold it on the first frame
-      if (reduced) {
-        animation.addEventListener('DOMLoaded', () => animation.goToAndStop(0, true));
-      }
+      // Keep a loaded illustration in step with both the operating-system
+      // preference and the docs' explicit reduced-motion preview toggle.
+      const syncMotion = () => {
+        const reduced = prefersReducedMotion();
+
+        animation.loop = !reduced;
+
+        if (reduced) {
+          animation.goToAndStop(0, true);
+        } else {
+          animation.play();
+        }
+      };
+
+      animation.addEventListener('DOMLoaded', syncMotion);
+      matchMedia('(prefers-reduced-motion: reduce)').addEventListener?.('change', syncMotion);
+      window.addEventListener('jelly-motion-change', syncMotion);
     })
     .catch(() => {
       // No animation is fine - the page stands on its own

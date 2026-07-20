@@ -37,8 +37,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .rover { animation: none; }
+  :host-context(html:not([data-jelly-motion="no-preference"])) .rover { animation: none; }
 }
+
+:host-context([data-jelly-motion="reduce"]) .rover { animation: none; }
 
 @media (forced-colors: active) {
   .dots g { fill: CanvasText; }

@@ -81,8 +81,10 @@ input {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .track { transition: none; }
+  :host-context(html:not([data-jelly-motion="no-preference"])) .track { transition: none; }
 }
+
+:host-context([data-jelly-motion="reduce"]) .track { transition: none; }
 
 /* The focus ring is painted on the canvas so it follows the jiggle;
    this ::after is only for forced-colors mode, where canvas is ignored. */

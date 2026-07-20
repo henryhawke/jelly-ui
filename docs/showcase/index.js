@@ -19,6 +19,7 @@ import { jellyToast }       from '../../package.js';
 
 import { escapeHTML }       from '../shared/common.js';
 import { formatInlineCode } from '../shared/common.js';
+import { wireMotionToggle } from '../shared/common.js';
 import { wireThemeToggle }  from '../shared/common.js';
 
 import { COMPONENTS }       from '../content/data.js';
@@ -29,6 +30,7 @@ import { NO_PANEL }         from './playgrounds.js';
 
 import { initLottie }       from '../lottie/index.js';
 
+wireMotionToggle(document.getElementById('motionToggle'));
 wireThemeToggle(document.getElementById('themeToggle'));
 initLottie(document.getElementById('heroLottie'), './docs/lottie/hero-lottie.json');
 initLottie(document.getElementById('footerLottie'), './docs/lottie/footer-lottie.json');

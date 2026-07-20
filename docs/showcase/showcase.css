@@ -137,8 +137,10 @@
 .hero-lottie svg { display: block; width: 100%; height: 100%; }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-lottie { transition: none; }
+  :root:not([data-jelly-motion="no-preference"]) .hero-lottie { transition: none; }
 }
+
+:root[data-jelly-motion="reduce"] .hero-lottie { transition: none; }
 
 .hero h1 {
   margin: 0;
@@ -226,8 +228,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-backdrop .glow { animation: none; }
+  :root:not([data-jelly-motion="no-preference"]) .hero-backdrop .glow { animation: none; }
 }
+
+:root[data-jelly-motion="reduce"] .hero-backdrop .glow { animation: none; }
 
 /* The illustration is intentionally large, so it needs a wide viewport to sit
    beside the copy without crowding the code block. Below that it is hidden -
@@ -400,9 +404,18 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .stage-inner :is(jelly-button, jelly-input, jelly-badge, jelly-switch,
-    jelly-slider, jelly-select, jelly-otp, jelly-spinner) { transition: none; }
+  :root:not([data-jelly-motion="no-preference"]) .stage-inner
+    :is(jelly-button, jelly-icon-button, jelly-input, jelly-textarea,
+      jelly-checkbox, jelly-radio, jelly-switch, jelly-slider, jelly-badge,
+      jelly-kbd, jelly-spinner, jelly-select, jelly-segmented, jelly-otp,
+      jelly-progress, jelly-alert, jelly-card, jelly-label, jelly-tooltip) { transition: none; }
 }
+
+:root[data-jelly-motion="reduce"] .stage-inner :is(jelly-button,
+  jelly-icon-button, jelly-input, jelly-textarea, jelly-checkbox, jelly-radio,
+  jelly-switch, jelly-slider, jelly-badge, jelly-kbd, jelly-spinner,
+  jelly-select, jelly-segmented, jelly-otp, jelly-progress, jelly-alert,
+  jelly-card, jelly-label, jelly-tooltip) { transition: none; }
 
 /* A tidy panel for the jelly-tabs preview: a heading + line of copy on a soft
    surface, so switching tabs shows something more finished than bare text */
@@ -461,6 +474,14 @@
   transform: translateY(-6px);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-jelly-motion="no-preference"]) .event-chip { transition: none; }
+  :root:not([data-jelly-motion="no-preference"]) .event-chip.fading { transform: none; }
+}
+
+:root[data-jelly-motion="reduce"] .event-chip { transition: none; }
+:root[data-jelly-motion="reduce"] .event-chip.fading { transform: none; }
+
 /* ============================ Outro ============================ */
 /* The send-off at the very bottom: a celebratory Lottie (lazy-loaded like the
    hero's) over the footer text, aligned as the final snap stop. */
@@ -504,8 +525,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .footer-lottie { transition: none; }
+  :root:not([data-jelly-motion="no-preference"]) .footer-lottie { transition: none; }
 }
+
+:root[data-jelly-motion="reduce"] .footer-lottie { transition: none; }
 
 /* ============================ Mobile ============================ */
 /* Narrow screens stack each panel naturally: sections grow to their content

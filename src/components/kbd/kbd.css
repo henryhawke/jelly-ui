@@ -49,8 +49,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cap { transition: none; }
+  :host-context(html:not([data-jelly-motion="no-preference"])) .cap { transition: none; }
 }
+
+:host-context([data-jelly-motion="reduce"]) .cap { transition: none; }
 
 @media (forced-colors: active) {
   .cap { border: 1px solid ButtonText; border-radius: 6px; }

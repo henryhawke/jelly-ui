@@ -105,11 +105,13 @@ export class JellyTooltip extends HTMLElement {
     switch (name) {
       case 'size':
         canonicalizeSize(this);
+        this.reposition();
         break;
 
       case 'text':
         this.syncText();
         this.syncDescription();
+        this.reposition();
         break;
     }
   }
@@ -119,6 +121,19 @@ export class JellyTooltip extends HTMLElement {
     if (this.contentSlot) {
       this.contentSlot.textContent = this.getAttribute('text') || '';
     }
+  }
+
+  // Content and size changes alter the bubble's dimensions. Re-anchor an
+  // already-visible tooltip immediately instead of waiting for the next
+  // pointer movement, scroll, or resize event.
+  reposition (): void {
+    if (!this.bubble?.hasAttribute('data-show')) {
+      return;
+    }
+
+    const placement = (this.getAttribute('placement') as Placement | null) || 'top';
+
+    placeAnchored(this, this.bubble, placement, 8);
   }
 
   /*

@@ -66,7 +66,7 @@ docs/showcase/index.js        Showcase renderer (controls, live code, scroll cho
 docs/showcase/playgrounds.js  Showcase demo config (preview markup, controls, bindings)
 docs/api/index.html           API reference page: aligned tables for every attribute/event/token
 docs/api/index.js             Reference renderer (sidebar and aligned API tables)
-docs/shared/common.js         Shared docs behavior (3-state theme toggle)
+docs/shared/common.js         Shared docs behavior (theme + motion toggles)
 docs/content/content.js       Curated component docs (edit this to document components)
 docs/content/data.js          Generated docs data the pages render (do not edit)
 docs/lottie/index.js          Lazy-loads the hero + outro Lottie illustrations

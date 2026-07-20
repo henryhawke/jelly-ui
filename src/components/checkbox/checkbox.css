@@ -119,10 +119,15 @@ input {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mark {
+  :host-context(html:not([data-jelly-motion="no-preference"])) .mark {
     transition:        opacity 0.12s ease;
     stroke-dashoffset: 0;
   }
+}
+
+:host-context([data-jelly-motion="reduce"]) .mark {
+  transition:        opacity 0.12s ease;
+  stroke-dashoffset: 0;
 }
 
 .label {

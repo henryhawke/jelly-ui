@@ -1,6 +1,6 @@
 {
   "name": "jelly-ui",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A dependency-free Web Components library for soft, tactile product interfaces — real form controls meet soft-body physics.",
   "type": "module",
   "license": "MIT",

@@ -84,6 +84,11 @@ export class JellyElement extends HTMLElement implements JellyComponent {
     this.requestFrame();
   };
 
+  // An in-page reduced-motion preview can change independently of the OS
+  // media query. Wake parked components so continuous indicators stop or
+  // resume immediately and every canvas repaints in its new motion mode.
+  onMotionChange = (): void => this.requestFrame();
+
   onWindowResize = (): void => this.applyShape();
 
   constructor () {
@@ -153,6 +158,7 @@ export class JellyElement extends HTMLElement implements JellyComponent {
     // Theme flips change the computed fill; zoom changes the device pixel
     // ratio without firing the ResizeObserver - both need a repaint
     window.addEventListener('jelly-theme-change', this.onThemeChange);
+    window.addEventListener('jelly-motion-change', this.onMotionChange);
     window.addEventListener('resize', this.onWindowResize, { passive: true });
 
     this.requestFrame();
@@ -163,6 +169,7 @@ export class JellyElement extends HTMLElement implements JellyComponent {
     engine.drop(this);
 
     window.removeEventListener('jelly-theme-change', this.onThemeChange);
+    window.removeEventListener('jelly-motion-change', this.onMotionChange);
     window.removeEventListener('resize', this.onWindowResize);
 
     if (this.resizeObserver) {

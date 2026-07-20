@@ -42,6 +42,9 @@
   padding-block:  var(--jelly-tooltip-padding-block);
   padding-inline: var(--jelly-tooltip-padding-inline);
   border-radius:  var(--jelly-tooltip-radius);
+  /* A fixed bubble near the viewport edge otherwise shrink-wraps only into
+     the space remaining to its right before placement can move it left. */
+  width:          max-content;
   max-width:      var(--jelly-tooltip-max-width);
 
   opacity:        0;

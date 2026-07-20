@@ -36,6 +36,8 @@ export class JellyIconButton extends JellyElement {
 
   // Populated in onBuilt()
   button!: HTMLButtonElement;
+  activationPointerId: number | null = null;
+  cancelPointerClick = false;
 
   // Tells the browser to trigger attributeChangedCallback when these attributes change
   static get observedAttributes (): string[] {
@@ -75,7 +77,52 @@ export class JellyIconButton extends JellyElement {
 
     this.useHostFocusTarget(this.button);
     this.trackFocus(this.button);
+    this.preventReleaseOutsideActivation();
     this.wirePress(this.button);
+  }
+
+  // Pointer capture keeps a drag routed to the button after the pointer leaves
+  // it. Cancel the resulting native click unless the release is back inside
+  // the button; keyboard-originated clicks are unaffected.
+  preventReleaseOutsideActivation (): void {
+    this.button.addEventListener('pointerdown', (event) => {
+      this.activationPointerId = event.pointerId;
+      this.cancelPointerClick = false;
+    });
+
+    this.button.addEventListener('pointerup', (event) => {
+      if (event.pointerId !== this.activationPointerId) {
+        return;
+      }
+
+      const rect = this.button.getBoundingClientRect();
+
+      this.cancelPointerClick =
+        event.clientX < rect.left || event.clientX > rect.right
+        || event.clientY < rect.top || event.clientY > rect.bottom;
+      this.activationPointerId = null;
+    });
+
+    this.button.addEventListener('pointercancel', () => {
+      this.activationPointerId = null;
+      this.cancelPointerClick = false;
+    });
+
+    const cancelOutsideRelease = (event: Event): void => {
+      if (!this.cancelPointerClick) {
+        return;
+      }
+
+      this.cancelPointerClick = false;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    };
+
+    // Native clicks from a shadow button are composed. Guard on both the
+    // source button and the host boundary so an outside release cannot leak
+    // through to a consumer's host-level click listener.
+    this.button.addEventListener('click', cancelOutsideRelease);
+    this.addEventListener('click', cancelOutsideRelease, { capture: true });
   }
 
   // Lifecycle method: Fires when observed HTML attributes change dynamically

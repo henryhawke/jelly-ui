@@ -30,6 +30,20 @@ test('shows on pointerenter and hides on pointerleave', () => {
   host.remove();
 });
 
+test('repositions an open tooltip when its text changes', () => {
+  const host = mount('<jelly-tooltip text="Info"><button>Trigger</button></jelly-tooltip>');
+  const el = host.querySelector('jelly-tooltip') as JellyTooltip;
+  const bubble = el.shadowRoot!.querySelector('.bubble') as HTMLElement;
+
+  el.show();
+  bubble.style.left = '999px';
+  el.setAttribute('text', 'A much longer tooltip label');
+
+  expect(bubble.style.left).not.toBe('999px');
+
+  host.remove();
+});
+
 test('Escape dismisses the visible tooltip', () => {
   const host = mount('<jelly-tooltip text="Info"><button>Trigger</button></jelly-tooltip>');
   const el = host.querySelector('jelly-tooltip') as JellyTooltip;

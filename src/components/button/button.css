@@ -86,8 +86,10 @@ button {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  button { transition: none; }
+  :host-context(html:not([data-jelly-motion="no-preference"])) button { transition: none; }
 }
+
+:host-context([data-jelly-motion="reduce"]) button { transition: none; }
 
 button:focus-visible {
   outline: none;

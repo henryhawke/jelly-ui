@@ -1,9 +1,10 @@
 /*
  * Shared behavior for both docs pages (the showcase and the API
- * reference): the theme toggle
+ * reference): the theme and reduced-motion toggles
  */
 
 import { jellyIcon }    from '../../package.js';
+import { jellyToast }   from '../../package.js';
 import { setThemeMode } from '../../package.js';
 import { getThemeMode } from '../../package.js';
 import { escapeHTML }   from '../../package.js';
@@ -20,9 +21,10 @@ export function formatInlineCode (text) {
 // The theme cycles auto → light → dark → auto. "auto" carries no forced mode,
 // so the page follows the OS / browser preference (and live-updates when it
 // changes); light / dark are explicit overrides.
-const ORDER  = ['auto', 'light', 'dark'];
-const ICON   = { auto: 'theme-auto', light: 'weather-sunny', dark: 'weather-moon' };
-const NAME   = { auto: 'system', light: 'light', dark: 'dark' };
+const ORDER   = ['auto', 'light', 'dark'];
+const ICON    = { auto: 'theme-auto', light: 'weather-sunny', dark: 'weather-moon' };
+const NAME    = { auto: 'system', light: 'light', dark: 'dark' };
+const TOOLTIP = { auto: 'System Settings', light: 'Light Mode', dark: 'Dark Mode' };
 
 /*
  * Wire the theme cycle button (Fluent icons): it shows the current mode's icon
@@ -40,6 +42,7 @@ export function wireThemeToggle (button) {
 
     button.innerHTML = jellyIcon(ICON[mode], { size: 17 });
     button.setAttribute('label', `Theme: ${NAME[mode]}. Click to change.`);
+    button.closest('jelly-tooltip')?.setAttribute('text', TOOLTIP[mode]);
   };
 
   button.addEventListener('click', () => {
@@ -60,4 +63,91 @@ export function wireThemeToggle (button) {
   window.addEventListener('jelly-theme-change', sync);
 
   sync();
+}
+
+const MOTION_ATTRIBUTE      = 'data-jelly-motion';
+const MOTION_STORAGE        = 'jelly-docs-reduced-motion';
+const MOTION_NOTICE_STORAGE = 'jelly-docs-reduced-motion-notice-shown';
+const MOTION_ORDER          = ['system', 'no-preference', 'reduce'];
+
+const MOTION_ICON = {
+  'system':        'animal-rabbit-regular',
+  'no-preference': 'animal-rabbit-filled',
+  'reduce':        'animal-rabbit-off-filled',
+};
+
+const MOTION_LABEL = {
+  'system':        'Motion follows the system setting. Click to force animation on.',
+  'no-preference': 'Animation is on. Click to turn animation off.',
+  'reduce':        'Animation is off. Click to follow the system setting.',
+};
+const MOTION_TOOLTIP = {
+
+  'system':        'System Settings',
+  'no-preference': 'Motion',
+  'reduce':        'Reduced Motion',
+};
+
+function getMotionMode () {
+  const mode = document.documentElement.getAttribute(MOTION_ATTRIBUTE);
+
+  return mode === 'no-preference' || mode === 'reduce' ? mode : 'system';
+}
+
+/*
+ * Let visitors preview the same calm component behavior normally selected by
+ * prefers-reduced-motion. The root attribute is understood by the library's
+ * JavaScript motion helper and by the matching CSS fallbacks; the saved value
+ * is applied by each page's pre-paint script so motion never flashes on first.
+ */
+export function wireMotionToggle (button) {
+  if (!button) {
+    return;
+  }
+
+  const systemMotionQuery = matchMedia('(prefers-reduced-motion: reduce)');
+
+  const sync = () => {
+    const mode = getMotionMode();
+
+    button.innerHTML = jellyIcon(MOTION_ICON[mode], { size: 17 });
+    button.setAttribute('label', MOTION_LABEL[mode]);
+    button.closest('jelly-tooltip')?.setAttribute('text', MOTION_TOOLTIP[mode]);
+  };
+
+  // This is an OS-preference notice, not feedback for the docs control.
+  // Remember it for the browser session so navigation and reloads do not
+  // repeatedly show a persistent toast.
+  const announceSystemReducedMotion = () => {
+    if (!systemMotionQuery.matches || sessionStorage.getItem(MOTION_NOTICE_STORAGE)) {
+      return;
+    }
+
+    jellyToast('Reduced motion is enabled', { tone: 'info', duration: 0 });
+    sessionStorage.setItem(MOTION_NOTICE_STORAGE, 'true');
+  };
+
+  button.addEventListener('click', () => {
+    const current = getMotionMode();
+    const mode    = MOTION_ORDER[(MOTION_ORDER.indexOf(current) + 1) % MOTION_ORDER.length];
+
+    if (mode === 'system') {
+      document.documentElement.removeAttribute(MOTION_ATTRIBUTE);
+      localStorage.removeItem(MOTION_STORAGE);
+    } else {
+      document.documentElement.setAttribute(MOTION_ATTRIBUTE, mode);
+      localStorage.setItem(MOTION_STORAGE, mode);
+    }
+
+    window.dispatchEvent(new CustomEvent('jelly-motion-change'));
+    sync();
+  });
+
+  systemMotionQuery.addEventListener?.('change', () => {
+    sync();
+    announceSystemReducedMotion();
+  });
+
+  sync();
+  announceSystemReducedMotion();
 }

@@ -15,7 +15,7 @@ The other files are plumbing you rarely touch:
 
 - `docs/api/index.js` — renders `data.js` into the reference tables
 - `docs/showcase/index.js` — renders the showcase (one section per component)
-- `docs/shared/common.js` — the shared theme toggle
+- `docs/shared/common.js` — the shared theme and reduced-motion toggles
 - `docs/lottie/index.js` — lazy-loads the decorative Lottie illustrations (hero + outro)
 - `docs/shared/site.css` — shared chrome: tokens, the top bar, code blocks, placeholders
 - `docs/showcase/showcase.css` / `docs/api/reference.css` — per-page styles

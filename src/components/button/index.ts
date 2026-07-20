@@ -43,6 +43,8 @@ export class JellyButton extends JellyElement {
 
   // Populated in onBuilt()
   button!: HTMLButtonElement;
+  activationPointerId: number | null = null;
+  cancelPointerClick = false;
 
   // Tells the browser to trigger attributeChangedCallback when these attributes change
   static get observedAttributes (): string[] {
@@ -96,10 +98,52 @@ export class JellyButton extends JellyElement {
 
     this.useHostFocusTarget(this.button);
     this.trackFocus(this.button);
+    this.preventReleaseOutsideActivation();
     this.wirePress(this.button);
 
     // Drive the closest light-DOM form for submit / reset buttons
     this.button.addEventListener('click', () => this.driveForm());
+  }
+
+  // Pointer capture keeps a drag routed to the button after the pointer leaves
+  // it. Only let the resulting native click through when it is released back
+  // inside the button; keyboard activation stays unchanged.
+  preventReleaseOutsideActivation (): void {
+    this.button.addEventListener('pointerdown', (event) => {
+      this.activationPointerId = event.pointerId;
+      this.cancelPointerClick = false;
+    });
+
+    this.button.addEventListener('pointerup', (event) => {
+      if (event.pointerId !== this.activationPointerId) {
+        return;
+      }
+
+      const rect = this.button.getBoundingClientRect();
+
+      this.cancelPointerClick =
+        event.clientX < rect.left || event.clientX > rect.right
+        || event.clientY < rect.top || event.clientY > rect.bottom;
+      this.activationPointerId = null;
+    });
+
+    this.button.addEventListener('pointercancel', () => {
+      this.activationPointerId = null;
+      this.cancelPointerClick = false;
+    });
+
+    const cancelOutsideRelease = (event: Event): void => {
+      if (!this.cancelPointerClick) {
+        return;
+      }
+
+      this.cancelPointerClick = false;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    };
+
+    this.button.addEventListener('click', cancelOutsideRelease);
+    this.addEventListener('click', cancelOutsideRelease, { capture: true });
   }
 
   // Lifecycle method: Fires when observed HTML attributes change dynamically

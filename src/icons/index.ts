@@ -27,6 +27,9 @@ import heart           from './heart.svg?raw';
 import weatherMoon     from './weather-moon.svg?raw';
 import weatherSunny    from './weather-sunny.svg?raw';
 import themeAuto       from './theme-auto.svg?raw';
+import animalRabbitFilled from './animal-rabbit-filled.svg?raw';
+import animalRabbitOffFilled from './animal-rabbit-off-filled.svg?raw';
+import animalRabbitRegular from './animal-rabbit-regular.svg?raw';
 
 // Every icon, keyed by its kebab-case name. Each value is a complete standalone
 // 24×24 SVG string; jellyIcon() injects size and ARIA attributes at render time.
@@ -44,6 +47,9 @@ export const ICONS = {
   'weather-moon':     weatherMoon,
   'weather-sunny':    weatherSunny,
   'theme-auto':       themeAuto,
+  'animal-rabbit-filled':     animalRabbitFilled,
+  'animal-rabbit-off-filled': animalRabbitOffFilled,
+  'animal-rabbit-regular':    animalRabbitRegular,
 } satisfies Record<string, string>;
 
 // The name of any icon in the set (autocompletes at call sites)
