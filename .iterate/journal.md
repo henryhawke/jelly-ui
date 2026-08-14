@@ -70,3 +70,10 @@
 - Separated visual selection from semantic selection so checkbox/radio/switch do not incorrectly announce themselves as selected list items.
 - Acceptance passed: 6 focused choice tests and fatal-info analysis.
 - Note to future self: `MergeSemantics` still needs explicit exclusion when a custom semantic label and a visible text label coexist, otherwise assistive technology can receive duplicate names.
+
+## Iteration 8 — JLY-007 native fields and values
+
+- Added text field, text area, one-time-code field, typed select, slider, and range slider APIs.
+- Kept Flutter's native `TextField`, dropdown, slider, and range-slider engines for IME, autofill, keyboard navigation, selection, semantics, and platform bug fixes; Jelly owns the surrounding surface and token styling.
+- Acceptance passed: 6 focused tests, fatal-info analysis, and the choice-control canary.
+- Note to future self: do not replace `EditableText` merely to draw custom slots; a visual flourish is not worth regressing composition input, autofill, cursor movement, or screen readers.
