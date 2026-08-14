@@ -34,3 +34,10 @@
 - **Drift:** The ledger still targets the requested Flutter conversion, morph system, performance, and browser proof.
 - **Patterns:** The advertised Dart 3.5 floor catches new-language syntax early; keep full analyzer runs in every unit.
 - **Regression canary:** Re-ran JLY-002's 8 tests and JLY-001's analyzer gate; both remained green.
+
+## Iteration 4 — JLY-003 membrane physics
+
+- Ported the rounded-rectangle membrane to preallocated structure-of-arrays buffers, including smoothed normals, pressure/area correction, neighbor coupling, bounded substeps, pointer impulses, sustained holds, directional stretch, perspective projection, and defensive recovery.
+- Reduced the unmeasured web default from 240 to a provisional 144 standard samples; final quality counts remain benchmark-owned rather than API promises.
+- Acceptance passed: 9 physics tests cover geometry, typed buffers, symmetry, settling, frame-rate envelopes, resize, directionality, and non-finite recovery; analyzer is clean.
+- Note to future self: `computeProjectedSurface` mutates reusable buffers; painters must consume them synchronously and never retain point objects.
