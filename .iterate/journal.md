@@ -91,3 +91,11 @@
 - **Drift:** The implementation still follows the blueprint's data-only morph seam and native-behavior rule; no app-specific behavior has entered core.
 - **Patterns:** Flutter-native interaction engines plus Jelly surface composition are producing smaller, more accessible APIs than custom render-object replacements.
 - **Regression canary:** Choice controls stayed 6/6 after field integration, and disclosure/layout passed 5/5 after correcting maintained-state element identity.
+
+## Iteration 10 — JLY-009 feedback, overlays, and navigation
+
+- Added skeleton, spinner, determinate progress, dialog, drawer, typed menu, controlled popover, toast, tooltip, breadcrumbs, and controlled pagination.
+- Skeletons share one repaint-only clock that parks with no listeners; overlays retain Flutter routes, portals, focus behavior, back dismissal, and Scaffold integration.
+- Added a solid/quiet button variant needed by pagination without leaking visual recipes into widget callers.
+- Acceptance passed: 8 focused tests, fatal-info analysis, and 11 display/disclosure regression tests.
+- Note to future self: `Semantics(scopesRoute: true)` requires `explicitChildNodes: true`; route semantics are stricter than ordinary container semantics because ownership must be unambiguous.

@@ -4,12 +4,15 @@ import '../../foundation/foundation.dart';
 import '../../theme/jelly_theme.dart';
 import '../internal/pressable_surface.dart';
 
+enum JellyButtonVariant { solid, quiet }
+
 /// A keyboard-, pointer-, touch-, and semantics-complete Jelly action.
 class JellyButton extends StatelessWidget {
   const JellyButton({
     required this.onPressed,
     required this.child,
     this.tone = JellySemanticTone.primary,
+    this.variant = JellyButtonVariant.solid,
     this.size = JellyControlSize.standard,
     this.loading = false,
     this.loadingLabel = 'Loading',
@@ -24,6 +27,7 @@ class JellyButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final Widget child;
   final JellySemanticTone tone;
+  final JellyButtonVariant variant;
   final JellyControlSize size;
   final bool loading;
   final String loadingLabel;
@@ -48,6 +52,9 @@ class JellyButton extends StatelessWidget {
     );
     final Widget button = JellyPressableSurface(
       onPressed: loading ? null : onPressed,
+      role: variant == JellyButtonVariant.solid
+          ? JellySurfaceRole.action
+          : JellySurfaceRole.quietAction,
       tone: tone,
       minimumSize: Size(0, height),
       padding: EdgeInsets.symmetric(horizontal: theme.geometry.spacing.lg),
