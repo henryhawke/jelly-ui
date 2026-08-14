@@ -13,3 +13,10 @@
 - Acceptance passed: `git diff --check` and all three planning/state documents are non-empty.
 - The 969-line blueprint is now the implementation authority, with the FartUI source remaining the visual authority for the first morph.
 - Note to future self: do not quietly weaken the ten blueprint decisions; choose conservative defaults and record them in public docs/tests.
+
+## Iteration 2 — JLY-001 workspace foundation
+
+- Created a Dart workspace with `packages/jelly_ui`, `packages/jelly_morph_neobrutalism`, and the web-only `apps/catalog` application.
+- Selected Dart 3.5 as the minimum because workspace resolution requires it; retained Flutter 3.22 as the provisional package floor.
+- Acceptance passed: `flutter pub get` resolved the workspace and `flutter analyze --no-fatal-infos` reported no issues.
+- Note to future self: generated Flutter 3.44 examples use Dart dot shorthands, so avoid those while the package advertises Dart 3.5.

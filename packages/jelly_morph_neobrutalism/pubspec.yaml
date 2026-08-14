@@ -1,0 +1,24 @@
+name: jelly_morph_neobrutalism
+description: Printed-hardware neobrutalism morph for Jelly UI.
+version: 1.0.0-dev.1
+homepage: https://github.com/henryhawke/jelly-ui
+repository: https://github.com/henryhawke/jelly-ui/tree/main/packages/jelly_morph_neobrutalism
+
+environment:
+  sdk: ">=3.5.0 <4.0.0"
+  flutter: ">=3.22.0"
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+  jelly_ui: ^1.0.0-dev.1
+
+dev_dependencies:
+  flutter_lints: ^6.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true

@@ -3,7 +3,7 @@
 Objective: replace Jelly UI's public product surface with a production-quality Flutter package, preserve the soft-body interaction, ship a typed morph seam with the FartUI neobrutalist Instrument morph, and verify the catalog in a browser.
 
 - [done] JLY-000 — Freeze blueprint and iteration state | acceptance: `git diff --check && test -s docs/FLUTTER_BLUEPRINT.md && test -s .iterate/ledger.md && test -s .iterate/journal.md` | evidence: passed 2026-08-14; blueprint, ledger, and journal present; diff check clean
-- [todo] JLY-001 — Create Dart workspace, Flutter package, morph package, and web catalog | acceptance: `flutter pub get && flutter analyze --no-fatal-infos` | evidence: pending
+- [done] JLY-001 — Create Dart workspace, Flutter package, morph package, and web catalog | acceptance: `flutter pub get && flutter analyze --no-fatal-infos` | evidence: passed 2026-08-14; workspace resolved 26 dependencies and analyzer reported no issues
 - [todo] JLY-002 — Implement typed theme, token, recipe, morph, motion, and feedback contracts | acceptance: `flutter test packages/jelly_ui/test/theme` | evidence: pending
 - [todo] JLY-003 — Port deterministic allocation-conscious membrane physics | acceptance: `flutter test packages/jelly_ui/test/physics` | evidence: pending
 - [todo] JLY-004 — Implement shared parked scheduler, surface controller, painter, and JellySurface | acceptance: `flutter test packages/jelly_ui/test/rendering packages/jelly_ui/test/motion` | evidence: pending

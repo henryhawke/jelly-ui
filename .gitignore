@@ -5,3 +5,15 @@ _site/
 *.log
 custom-elements.json
 docs/content/data.js
+
+# Flutter / Dart workspace
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.idea/
+*.iml
+build/
+coverage/
+**/doc/api/
+**/pubspec.lock
+!pubspec.lock

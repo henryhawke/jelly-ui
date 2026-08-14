@@ -1,0 +1,20 @@
+name: jelly_workspace
+description: Workspace for Jelly UI's Flutter package, morphs, and catalog.
+publish_to: none
+
+environment:
+  sdk: ">=3.5.0 <4.0.0"
+
+workspace:
+  - packages/jelly_ui
+  - packages/jelly_morph_neobrutalism
+  - apps/catalog
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_lints: ^6.0.0
+  flutter_test:
+    sdk: flutter
