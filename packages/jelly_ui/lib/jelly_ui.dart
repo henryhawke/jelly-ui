@@ -1,6 +1,15 @@
 /// Tactile Flutter controls powered by a soft-body surface.
 library;
 
+export 'src/components/actions/button.dart';
+export 'src/components/actions/icon_button.dart';
+export 'src/components/display/alert.dart';
+export 'src/components/display/badge.dart';
+export 'src/components/display/card.dart';
+export 'src/components/display/chip.dart';
+export 'src/components/display/divider.dart';
+export 'src/components/display/kbd.dart';
+export 'src/components/display/label.dart';
 export 'src/foundation/foundation.dart';
 export 'src/rendering/jelly_surface.dart';
 export 'src/rendering/jelly_surface_controller.dart';

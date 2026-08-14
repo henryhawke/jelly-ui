@@ -11,6 +11,7 @@ class JellySurface extends StatefulWidget {
   const JellySurface({
     required this.child,
     this.role = JellySurfaceRole.container,
+    this.tone = JellySemanticTone.neutral,
     this.states = const <WidgetState>{},
     this.controller,
     this.padding = EdgeInsets.zero,
@@ -21,6 +22,7 @@ class JellySurface extends StatefulWidget {
 
   final Widget child;
   final JellySurfaceRole role;
+  final JellySemanticTone tone;
   final Set<WidgetState> states;
   final JellySurfaceController? controller;
   final EdgeInsetsGeometry padding;
@@ -74,8 +76,14 @@ class _JellySurfaceState extends State<JellySurface> {
       enabled: TickerMode.of(context),
     );
 
-    final JellySurfaceStyle style =
+    JellySurfaceStyle style =
         theme.surfaces[widget.role].resolve(widget.states);
+    if (widget.tone != JellySemanticTone.neutral) {
+      style = style.copyWith(
+        fill: theme.palette.tone(widget.tone),
+        foreground: theme.palette.textOnAction,
+      );
+    }
     final double radius = widget.radius ?? style.radius;
     final Size minimum = widget.minimumSize ?? Size.zero;
     final Widget content = ConstrainedBox(
@@ -83,7 +91,19 @@ class _JellySurfaceState extends State<JellySurface> {
         minWidth: minimum.width,
         minHeight: minimum.height,
       ),
-      child: Padding(padding: widget.padding, child: widget.child),
+      child: Transform.translate(
+        offset: style.contentOffset,
+        child: Padding(
+          padding: widget.padding,
+          child: IconTheme.merge(
+            data: IconThemeData(color: style.foreground),
+            child: DefaultTextStyle.merge(
+              style: TextStyle(color: style.foreground),
+              child: widget.child,
+            ),
+          ),
+        ),
+      ),
     );
 
     return RepaintBoundary(

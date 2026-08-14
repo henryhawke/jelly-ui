@@ -49,3 +49,17 @@
 - Proved controller notifications repaint the painter without rebuilding the stable child subtree.
 - Acceptance passed: 7 motion/rendering tests and a fatal-info analyzer run.
 - Note to future self: public widgets should feed centered local coordinates into their controller and use Flutter semantics/focus outside the painter.
+
+## Iteration 6 — JLY-005 display and actions
+
+- Implemented Jelly button, icon button, card, badge, chip, divider, label, keyboard key, and alert on the shared surface.
+- Added one focus/keyboard/pointer/semantics interaction wrapper with instant press state, stable loading dimensions, disabled behavior, and centered physics coordinates.
+- Acceptance passed: 6 focused tests and fatal-info analysis; the JLY-004 motion/rendering canary also remained at 7 passing tests.
+- Note to future self: display-only chips must not masquerade as disabled buttons; the implementation branches to a non-interactive surface when no callback exists.
+
+### META after iteration 6
+
+- **Velocity:** 6 of 6 units completed; component-family velocity is holding after the foundation investment.
+- **Drift:** All new UI is generic Jelly; no Fart With Friends app vocabulary or shell behavior leaked into the package.
+- **Patterns:** Semantics actions disappear if child gesture semantics are excluded without an explicit `Semantics.onTap`; keep semantic ownership at the wrapper.
+- **Regression canary:** JLY-004 motion/rendering suite remained 7/7 after the component wrapper began consuming it.
