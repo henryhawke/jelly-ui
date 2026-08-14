@@ -11,6 +11,7 @@ final class JellyLoadingClock extends ChangeNotifier {
 
   final HashMap<VoidCallback, int> _registrations = HashMap.identity();
   bool _scheduled = false;
+  int? _frameCallbackId;
   double _phase = 0;
 
   double get phase => _phase;
@@ -42,6 +43,11 @@ final class JellyLoadingClock extends ChangeNotifier {
     } else {
       _registrations[listener] = count - 1;
     }
+    if (_registrations.isEmpty && _frameCallbackId != null) {
+      SchedulerBinding.instance.cancelFrameCallbackWithId(_frameCallbackId!);
+      _frameCallbackId = null;
+      _scheduled = false;
+    }
   }
 
   void _ensureFrame() {
@@ -49,11 +55,12 @@ final class JellyLoadingClock extends ChangeNotifier {
       return;
     }
     _scheduled = true;
-    SchedulerBinding.instance.scheduleFrameCallback(_tick);
+    _frameCallbackId = SchedulerBinding.instance.scheduleFrameCallback(_tick);
   }
 
   void _tick(Duration elapsed) {
     _scheduled = false;
+    _frameCallbackId = null;
     if (_registrations.isEmpty) {
       return;
     }

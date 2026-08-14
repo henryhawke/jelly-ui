@@ -6,7 +6,7 @@ import '../../theme/jelly_theme.dart';
 import 'loading_clock.dart';
 
 /// Repaint-only loading placeholder sharing one parked package clock.
-class JellySkeleton extends StatelessWidget {
+class JellySkeleton extends StatefulWidget {
   const JellySkeleton({
     this.width,
     this.height = 16,
@@ -23,23 +23,70 @@ class JellySkeleton extends StatelessWidget {
   final String semanticLabel;
 
   @override
+  State<JellySkeleton> createState() => _JellySkeletonState();
+}
+
+class _JellySkeletonState extends State<JellySkeleton> {
+  final _SkeletonRepaint _repaint = _SkeletonRepaint();
+  late final VoidCallback _pulseListener = _repaint.pulse;
+  bool _listening = false;
+  bool _reduceMotion = false;
+
+  void _setListening(bool value) {
+    if (_listening == value) {
+      return;
+    }
+    _listening = value;
+    if (value) {
+      JellyLoadingClock.instance.addListener(_pulseListener);
+    } else {
+      JellyLoadingClock.instance.removeListener(_pulseListener);
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final JellyThemeData data = JellyTheme.of(context);
+    _reduceMotion = data.reduceMotionFor(context);
+    _setListening(widget.animate && !_reduceMotion);
+  }
+
+  @override
+  void didUpdateWidget(covariant JellySkeleton oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _setListening(widget.animate && !_reduceMotion);
+  }
+
+  @override
+  void dispose() {
+    _setListening(false);
+    _repaint.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final JellyThemeData data = JellyTheme.of(context);
     final theme = data.resolveFor(context);
-    final bool shouldAnimate = animate && !data.reduceMotionFor(context);
     return Semantics(
-      label: semanticLabel,
+      label: widget.semanticLabel,
       child: CustomPaint(
         painter: _JellySkeletonPainter(
           base: theme.palette.surfaceInset,
           highlight: theme.palette.surfaceRaised,
-          radius: radius ?? theme.geometry.radiusSmall,
-          clock: shouldAnimate ? JellyLoadingClock.instance : null,
+          radius: widget.radius ?? theme.geometry.radiusSmall,
+          clock: _listening ? JellyLoadingClock.instance : null,
+          repaint: _repaint,
         ),
-        child: SizedBox(width: width, height: height),
+        child: SizedBox(width: widget.width, height: widget.height),
       ),
     );
   }
+}
+
+final class _SkeletonRepaint extends ChangeNotifier {
+  void pulse() => notifyListeners();
 }
 
 final class _JellySkeletonPainter extends CustomPainter {
@@ -48,8 +95,9 @@ final class _JellySkeletonPainter extends CustomPainter {
     required this.highlight,
     required this.radius,
     required this.clock,
+    required Listenable repaint,
   })  : _paint = Paint(),
-        super(repaint: clock);
+        super(repaint: repaint);
 
   final Color base;
   final Color highlight;

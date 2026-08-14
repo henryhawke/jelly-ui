@@ -108,3 +108,18 @@
 - Extended the generic palette seam with two-tone focus data so dark fills can use paper while light fills use ink without the core knowing any morph id.
 - Acceptance passed: 6 morph tests, 11 core theme/render regression tests, binary font inspection, and fatal-info analysis.
 - Note to future self: one focus color is insufficient for a bright nine-token system; the right abstraction is a contrast pair resolved from effective fill, not a hard-coded exception for one morph.
+
+## Iteration 12 — JLY-011 complete web catalog
+
+- Replaced the generated counter with a responsive, interactive Instrument catalog exercising actions, display, choices, fields, values, loading, disclosure, layout, navigation, and overlays.
+- Added an exact 38-family registry/coverage gate and widget tests for mounting, controlled state, scrolling, and native dialog routes.
+- The full catalog exposed a shared-clock lifecycle defect: identity-tracked method tear-offs were removed with new closure objects. Skeleton state now owns a stable listener identity, unregisters on disposal, and cancels the pending frame when the final listener leaves.
+- Acceptance passed: 4 catalog tests, fatal-info analysis, and a release web build; Flutter's Wasm compatibility dry run also succeeded.
+- Note to future self: a shared scheduler is only truly parked if it cancels the already-queued callback when its last consumer disappears; “the next tick will notice” still leaks a transient frame into teardown.
+
+### META after iteration 12
+
+- **Velocity:** 12 of 12 units completed; all requested component families and the first morph now exist, leaving cross-cutting gates rather than feature construction.
+- **Drift:** The catalog demonstrates generic Jelly APIs under FartUI appearance without importing FWF product shell or vocabulary into core.
+- **Patterns:** Mounting the whole design system in one page catches lifecycle and continuous-animation defects that isolated component tests miss.
+- **Regression canary:** Catalog state, overlay routes, analyzer, and release compilation remain green after the loading-clock lifecycle repair.
