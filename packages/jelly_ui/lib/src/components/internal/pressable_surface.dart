@@ -22,6 +22,7 @@ class JellyPressableSurface extends StatefulWidget {
     this.semanticsChecked,
     this.semanticsToggled,
     this.semanticsSelected,
+    this.semanticsExpanded,
     this.semanticsMutuallyExclusive = false,
     super.key,
   });
@@ -41,6 +42,7 @@ class JellyPressableSurface extends StatefulWidget {
   final bool? semanticsChecked;
   final bool? semanticsToggled;
   final bool? semanticsSelected;
+  final bool? semanticsExpanded;
   final bool semanticsMutuallyExclusive;
 
   @override
@@ -118,6 +120,7 @@ class _JellyPressableSurfaceState extends State<JellyPressableSurface> {
       inMutuallyExclusiveGroup: widget.semanticsMutuallyExclusive,
       enabled: _enabled,
       selected: widget.semanticsSelected,
+      expanded: widget.semanticsExpanded,
       label: widget.semanticLabel,
       onTap: _enabled ? _activate : null,
       child: ExcludeSemantics(

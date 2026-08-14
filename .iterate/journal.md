@@ -77,3 +77,17 @@
 - Kept Flutter's native `TextField`, dropdown, slider, and range-slider engines for IME, autofill, keyboard navigation, selection, semantics, and platform bug fixes; Jelly owns the surrounding surface and token styling.
 - Acceptance passed: 6 focused tests, fatal-info analysis, and the choice-control canary.
 - Note to future self: do not replace `EditableText` merely to draw custom slots; a visual flourish is not worth regressing composition input, autofill, cursor movement, or screen readers.
+
+## Iteration 9 — JLY-008 disclosure and layout
+
+- Added controlled collapsible, accordion, typed tabs, and horizontal/vertical resizable split layout.
+- Expansion and tab transitions honor reduced motion; maintained disclosure children retain state; resize handles expose slider semantics, mouse cursors, drag input, and RTL-aware horizontal deltas.
+- Acceptance passed: 5 focused tests and fatal-info analysis.
+- Note to future self: preserving a child means keeping it under a stable element such as `Visibility`; swapping between unrelated wrapper types silently discards state even if both branches render the same child.
+
+### META after iteration 9
+
+- **Velocity:** 9 of 9 units completed; the broad family units remain testable because controlled-state primitives are reused.
+- **Drift:** The implementation still follows the blueprint's data-only morph seam and native-behavior rule; no app-specific behavior has entered core.
+- **Patterns:** Flutter-native interaction engines plus Jelly surface composition are producing smaller, more accessible APIs than custom render-object replacements.
+- **Regression canary:** Choice controls stayed 6/6 after field integration, and disclosure/layout passed 5/5 after correcting maintained-state element identity.
