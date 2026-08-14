@@ -22,3 +22,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: JellyInstrumentArchivo
+      fonts:
+        - asset: assets/fonts/Archivo-VariableFont_wdth,wght.ttf
+    - family: JellyInstrumentPublicSans
+      fonts:
+        - asset: assets/fonts/PublicSans-VariableFont_wght.ttf

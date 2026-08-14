@@ -99,3 +99,12 @@
 - Added a solid/quiet button variant needed by pagination without leaking visual recipes into widget callers.
 - Acceptance passed: 8 focused tests, fatal-info analysis, and 11 display/disclosure regression tests.
 - Note to future self: `Semantics(scopesRoute: true)` requires `explicitChildNodes: true`; route semantics are stricter than ordinary container semantics because ownership must be unambiguous.
+
+## Iteration 11 — JLY-010 exact Instrument morph
+
+- Re-read the canonical FartUI token source, typography facade, visual rules, and six-state interaction law before translating the morph.
+- Shipped the exact nine opaque colors, 3px default borders, 12/16/24 radii, 4/5/6px zero-blur depth tiers, +1px pressed sink, bone/no-shadow disabled state, FartUI timing curves, and the same printed theme in all brightness modes.
+- Bundled the canonical Archivo width/weight and Public Sans weight variable fonts with SIL OFL 1.1 notices; every Archivo role carries `wdth` 125 and numerals use tabular figures.
+- Extended the generic palette seam with two-tone focus data so dark fills can use paper while light fills use ink without the core knowing any morph id.
+- Acceptance passed: 6 morph tests, 11 core theme/render regression tests, binary font inspection, and fatal-info analysis.
+- Note to future self: one focus color is insufficient for a bright nine-token system; the right abstraction is a contrast pair resolved from effective fill, not a hard-coded exception for one morph.

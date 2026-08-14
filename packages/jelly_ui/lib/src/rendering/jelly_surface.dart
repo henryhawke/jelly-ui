@@ -84,6 +84,11 @@ class _JellySurfaceState extends State<JellySurface> {
         foreground: theme.palette.textOnAction,
       );
     }
+    style = style.copyWith(
+      focus: style.fill.computeLuminance() < 0.35
+          ? theme.palette.focusOnDark
+          : theme.palette.focus,
+    );
     final double radius = widget.radius ?? style.radius;
     final Size minimum = widget.minimumSize ?? Size.zero;
     final Widget content = ConstrainedBox(

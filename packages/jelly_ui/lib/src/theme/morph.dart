@@ -72,6 +72,7 @@ JellyMorphTheme _neutralTheme(
     textOnAction: const Color(0xFFFFFFFF),
     border: dark ? const Color(0xFF8793A8) : const Color(0xFF34405A),
     focus: const Color(0xFF00A3FF),
+    focusOnDark: const Color(0xFFFFFFFF),
     shadow: dark ? const Color(0xFF000000) : const Color(0x6634405A),
     primary: const Color(0xFF6558E8),
     info: const Color(0xFF1688E5),

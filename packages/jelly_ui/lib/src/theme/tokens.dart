@@ -17,6 +17,7 @@ final class JellyPalette {
     required this.textOnAction,
     required this.border,
     required this.focus,
+    required this.focusOnDark,
     required this.shadow,
     required this.primary,
     required this.info,
@@ -36,6 +37,7 @@ final class JellyPalette {
   final Color textOnAction;
   final Color border;
   final Color focus;
+  final Color focusOnDark;
   final Color shadow;
   final Color primary;
   final Color info;
@@ -67,6 +69,7 @@ final class JellyPalette {
       textOnAction: Color.lerp(a.textOnAction, b.textOnAction, t)!,
       border: Color.lerp(a.border, b.border, t)!,
       focus: Color.lerp(a.focus, b.focus, t)!,
+      focusOnDark: Color.lerp(a.focusOnDark, b.focusOnDark, t)!,
       shadow: Color.lerp(a.shadow, b.shadow, t)!,
       primary: Color.lerp(a.primary, b.primary, t)!,
       info: Color.lerp(a.info, b.info, t)!,
