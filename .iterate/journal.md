@@ -142,3 +142,21 @@
 - Bundled the OFL text as a morph asset so compiled applications carry the font license, not merely the source package.
 - Acceptance passed: 8 performance/benchmark tests, 11 catalog/motion/render regressions, and fatal-info analysis.
 - Note to future self: lab microbenchmarks protect algorithmic regressions, while p75 LCP/INP/CLS and physical frame traces answer user-experience questions; neither substitutes for the other.
+
+## Iteration 15 — JLY-014 release qualification and complete conversion
+
+- Removed the retired TypeScript/Web Components implementation, Node/Vite/Vitest build surface, and generated legacy site so the repository is now a Flutter workspace rather than two competing products; git history remains the migration escape hatch.
+- Replaced the Pages workflow and root/package documentation with Flutter-native build, test, publishing, and adoption paths.
+- The first release-browser pass found duplicated semantics in the shared pressable primitive: the explicit role/action contained an implicit GestureDetector tappable node, so web exposed nested buttons and segmented semantic activation was unreliable. The gesture node is now excluded from semantics, the explicit wrapper remains the sole owner, and the choice test activates the segment through its semantic label.
+- Browser receipt: the compiled release ran at 1280×720 and 390×844 with no console warnings/errors and no document-width overflow. Verified primary activation, motion switch, typed segmented selection, dialog close, drawer dismissal, typed menu selection, anchored popover/outside dismissal, toast live message, responsive wrapping, and all 38 family fixtures.
+- Artifact receipt: main JS 2,599,317 B (2,800 KiB budget), bundled fonts 761,912 B (800 KiB budget), CanvasKit Wasm 7,229,467 B (7,500 KiB budget), and the compiled 4,429 B font-license asset is present.
+- Final acceptance passed: 69 Dart files format-clean, fatal-info analyzer clean, 85 tests green, release web build green, Wasm compatibility dry run green, and `git diff --check` clean. The latest local VM means were 22.83µs for 144 samples and 39.19µs for 216 samples with 92 simulated 120Hz frames to settle; these remain regression alarms, not device-GPU evidence.
+- Scope boundary: browser qualification and local VM benchmarks do not prove zero jank on physical low-end devices or constitute VoiceOver/TalkBack/NVDA field certification.
+- Note to future self: test the compiled semantic tree, not only Flutter widget semantics; platform adapters can reveal duplicate ownership that framework tests flatten or tolerate.
+
+### META after iteration 15
+
+- **Velocity:** 15 of 15 units completed; the foundation-first sequence avoided per-component motion engines and made the browser-discovered semantics repair a one-file fix.
+- **Drift:** The final tree is exclusively Flutter/Dart for product code and retains the requested data-only morph boundary, exact Instrument appearance, and all 38 mapped families.
+- **Patterns:** Shared behavior primitives deserve release-browser semantic checks because one ownership mistake multiplies across every control family.
+- **Regression canary:** The post-repair full gate remained 85/85, analyzer-clean, format-clean, release-build clean, and artifact-budget clean.

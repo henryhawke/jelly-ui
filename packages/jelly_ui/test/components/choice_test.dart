@@ -169,6 +169,7 @@ void main() {
   testWidgets('segmented control changes one enabled typed value', (
     WidgetTester tester,
   ) async {
+    final SemanticsHandle semantics = tester.ensureSemantics();
     int value = 1;
     await tester.pumpWidget(
       _app(
@@ -195,13 +196,14 @@ void main() {
       ),
     );
 
-    await tester.tap(find.text('Two'));
+    await tester.tap(find.bySemanticsLabel('Two'));
     await tester.pump();
     expect(value, 2);
     await tester.tap(find.text('Three'));
     await tester.pump();
     expect(value, 2);
     expect(tester.getSize(find.text('Two')).height, greaterThan(0));
+    semantics.dispose();
   });
 
   testWidgets('choice ink never shrinks below the package target', (

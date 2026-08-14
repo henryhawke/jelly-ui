@@ -1,12 +1,12 @@
 {
-    "name": "jelly_catalog",
-    "short_name": "jelly_catalog",
+    "name": "Jelly UI catalog",
+    "short_name": "Jelly UI",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
-    "orientation": "portrait-primary",
+    "background_color": "#00AEFF",
+    "theme_color": "#00AEFF",
+    "description": "Interactive catalog for Jelly UI's tactile Flutter controls and morphs.",
+    "orientation": "any",
     "prefer_related_applications": false,
     "icons": [
         {

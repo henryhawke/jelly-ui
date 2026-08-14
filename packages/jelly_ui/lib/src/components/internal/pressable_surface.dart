@@ -151,6 +151,10 @@ class _JellyPressableSurfaceState extends State<JellyPressableSurface> {
           },
           child: GestureDetector(
             behavior: HitTestBehavior.opaque,
+            // The explicit Semantics node above owns the control role and
+            // action. Prevent GestureDetector from contributing a second,
+            // nested tappable node on Flutter web and assistive platforms.
+            excludeFromSemantics: true,
             onTapDown: _enabled ? _handleTapDown : null,
             onTapUp:
                 _enabled ? (TapUpDetails details) => _releaseVisual() : null,
