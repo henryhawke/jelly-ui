@@ -22,6 +22,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - FONT_LICENSES.md
   fonts:
     - family: JellyInstrumentArchivo
       fonts:

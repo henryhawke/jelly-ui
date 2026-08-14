@@ -133,3 +133,12 @@
 - Acceptance passed: 12 accessibility/contract tests, 37 component/morph regression tests, and fatal-info analysis.
 - Scope boundary: these automated checks do not constitute physical VoiceOver, TalkBack, NVDA, or switch-control evidence.
 - Note to future self: contrast belongs to a foreground/background pair, not a single global “on action” color; semantic palettes should encode the pair so widgets never guess.
+
+## Iteration 14 — JLY-013 measurable performance contracts
+
+- Applied the performance-budget workflow and committed numeric field/lab budgets with separate measurement boundaries, prioritized actions, and verification methods in `docs/PERFORMANCE_BUDGET.json`.
+- Added benchmark alarms for standard/hero membrane tiers and performance contracts for 100-client batching, scheduler/loading-clock parking, 240 repaint notifications without child rebuild, typed-buffer identity, expensive paint-source bans, and bounded settling.
+- Local Dart test-VM receipt: 16.38µs mean for 144 samples, 29.10µs for 216 samples, and 92 simulated 120Hz frames to settle a strong impulse. These numbers are machine-local regression evidence only.
+- Bundled the OFL text as a morph asset so compiled applications carry the font license, not merely the source package.
+- Acceptance passed: 8 performance/benchmark tests, 11 catalog/motion/render regressions, and fatal-info analysis.
+- Note to future self: lab microbenchmarks protect algorithmic regressions, while p75 LCP/INP/CLS and physical frame traces answer user-experience questions; neither substitutes for the other.

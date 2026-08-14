@@ -1,0 +1,60 @@
+{
+  "budgets": {
+    "field": {
+      "lcp_p75_ms": 2500,
+      "inp_p75_ms": 200,
+      "cls_p75": 0.1
+    },
+    "lab": {
+      "standard_physics_mean_cpu_us": 1000,
+      "hero_physics_mean_cpu_us": 1500,
+      "settle_frames_at_120hz_max": 1200,
+      "settled_scheduler_active_clients": 0,
+      "frame_requests_per_wake_batch": 1,
+      "catalog_main_js_uncompressed_kib_max": 2800,
+      "catalog_font_assets_uncompressed_kib_max": 800,
+      "catalog_renderer_wasm_uncompressed_kib_max": 7500
+    }
+  },
+  "measurement": {
+    "field": "Collect LCP, INP, and CLS from real deployed HTTPS sessions, grouped by renderer, browser, device class, and release. A local browser run is not field evidence.",
+    "lab": "Run the Flutter benchmark and performance contract suites in profile-like isolation, build the release catalog, record uncompressed artifacts, then use browser performance entries for a smoke receipt. Repeat physical-device frame profiling separately before a stable release.",
+    "limitations": [
+      "Dart VM unit timing is a regression alarm, not a phone GPU frame-time claim.",
+      "Browser smoke testing cannot qualify iOS, Android, VoiceOver, TalkBack, thermal throttling, or low-memory behavior.",
+      "Core Web Vitals need production RUM volume before pass or fail can be declared."
+    ]
+  },
+  "actions": [
+    {
+      "priority": 0,
+      "action": "Keep one parked scheduler for all membrane surfaces and cancel shared loading callbacks when the final listener leaves.",
+      "verification": "flutter test packages/jelly_ui/test/performance"
+    },
+    {
+      "priority": 0,
+      "action": "Keep physics updates on preallocated typed buffers and painting on one reusable path without saveLayer, blur, or per-frame child rebuilds.",
+      "verification": "flutter test packages/jelly_ui/benchmark packages/jelly_ui/test/performance"
+    },
+    {
+      "priority": 1,
+      "action": "Track release JavaScript, bundled variable fonts, and renderer Wasm independently so a framework runtime change is not misdiagnosed as application-code growth.",
+      "verification": "flutter build web --release in apps/catalog, followed by artifact-size receipt"
+    },
+    {
+      "priority": 1,
+      "action": "Capture production Core Web Vitals and renderer/device segmentation before claiming web performance readiness.",
+      "verification": "RUM dashboard with p75 LCP, INP, and CLS after representative traffic"
+    },
+    {
+      "priority": 1,
+      "action": "Profile raster and UI frame times on representative low-tier Android and supported iPhone hardware before stable release.",
+      "verification": "Flutter DevTools profile traces with zero build/raster frames over the device-specific frame budget during the interaction matrix"
+    }
+  ],
+  "skill_log": {
+    "skill": "performance-budgeter",
+    "applied_to": "Jelly UI core and release web catalog",
+    "principle": "No performance win is claimed without a named measurement and evidence boundary."
+  }
+}
