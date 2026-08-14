@@ -69,16 +69,20 @@ JellyMorphTheme _neutralTheme(
     surfaceInset: dark ? const Color(0xFF121722) : const Color(0xFFE8ECF3),
     textStrong: dark ? const Color(0xFFF7F9FC) : const Color(0xFF172033),
     textMuted: dark ? const Color(0xFFB6C0D2) : const Color(0xFF5C667A),
-    textOnAction: const Color(0xFFFFFFFF),
     border: dark ? const Color(0xFF8793A8) : const Color(0xFF34405A),
     focus: const Color(0xFF00A3FF),
     focusOnDark: const Color(0xFFFFFFFF),
     shadow: dark ? const Color(0xFF000000) : const Color(0x6634405A),
     primary: const Color(0xFF6558E8),
+    primaryForeground: const Color(0xFFFFFFFF),
     info: const Color(0xFF1688E5),
+    infoForeground: const Color(0xFF000000),
     success: const Color(0xFF138A57),
+    successForeground: const Color(0xFF000000),
     warning: const Color(0xFFF2B705),
+    warningForeground: const Color(0xFF172033),
     danger: const Color(0xFFD33F5A),
+    dangerForeground: const Color(0xFFFFFFFF),
     disabledSurface: dark ? const Color(0xFF252B36) : const Color(0xFFE4E7ED),
     disabledForeground:
         dark ? const Color(0xFF8993A5) : const Color(0xFF727B8B),
@@ -124,7 +128,7 @@ JellyMorphTheme _neutralTheme(
       focused: normal,
       selected: normal.copyWith(
         fill: palette.primary,
-        foreground: palette.textOnAction,
+        foreground: palette.primaryForeground,
       ),
       disabled: normal.copyWith(
         fill: palette.disabledSurface,
@@ -137,7 +141,7 @@ JellyMorphTheme _neutralTheme(
 
   final JellySurfaceRecipe action = recipe(
     fill: palette.primary,
-    foreground: palette.textOnAction,
+    foreground: palette.primaryForeground,
     shadowOffset: const Offset(0, 3),
   );
   final JellySurfaceRecipe quietAction = recipe(
@@ -162,7 +166,7 @@ JellyMorphTheme _neutralTheme(
   );
   final JellySurfaceRecipe thumb = recipe(
     fill: palette.primary,
-    foreground: palette.textOnAction,
+    foreground: palette.primaryForeground,
     shadowOffset: const Offset(0, 1),
     radius: 999,
   );
@@ -174,7 +178,7 @@ JellyMorphTheme _neutralTheme(
   );
   final JellySurfaceRecipe status = recipe(
     fill: palette.info,
-    foreground: palette.textOnAction,
+    foreground: palette.infoForeground,
     shadowOffset: Offset.zero,
     radius: 999,
   );

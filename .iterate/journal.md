@@ -123,3 +123,13 @@
 - **Drift:** The catalog demonstrates generic Jelly APIs under FartUI appearance without importing FWF product shell or vocabulary into core.
 - **Patterns:** Mounting the whole design system in one page catches lifecycle and continuous-animation defects that isolated component tests miss.
 - **Regression canary:** Catalog state, overlay routes, analyzer, and release compilation remain green after the loading-clock lifecycle repair.
+
+## Iteration 13 — JLY-012 accessibility and architecture contracts
+
+- Used the accessibility audit checklist to gate semantic roles/actions, keyboard activation, 48dp targets, 320dp at 200% text, RTL progress direction, high contrast, reduced motion, and live state behavior.
+- Replaced the single semantic-action foreground with per-tone foreground instructions after the neutral info and success fills failed 4.5:1 contrast; Jelly surfaces now resolve the correct typed foreground for each tone.
+- Corrected tone application so the safety-first disabled recipe cannot be overwritten by a requested color tone, and corrected button/label styling so explicit typography colors do not defeat surface foregrounds.
+- Added source-level contracts prohibiting context, builders, callbacks, gestures, async types, or animation controllers in morph/token definitions.
+- Acceptance passed: 12 accessibility/contract tests, 37 component/morph regression tests, and fatal-info analysis.
+- Scope boundary: these automated checks do not constitute physical VoiceOver, TalkBack, NVDA, or switch-control evidence.
+- Note to future self: contrast belongs to a foreground/background pair, not a single global “on action” color; semantic palettes should encode the pair so widgets never guess.

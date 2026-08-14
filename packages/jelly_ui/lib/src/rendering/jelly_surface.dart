@@ -78,10 +78,11 @@ class _JellySurfaceState extends State<JellySurface> {
 
     JellySurfaceStyle style =
         theme.surfaces[widget.role].resolve(widget.states);
-    if (widget.tone != JellySemanticTone.neutral) {
+    if (widget.tone != JellySemanticTone.neutral &&
+        !widget.states.contains(WidgetState.disabled)) {
       style = style.copyWith(
         fill: theme.palette.tone(widget.tone),
-        foreground: theme.palette.textOnAction,
+        foreground: theme.palette.foregroundFor(widget.tone),
       );
     }
     style = style.copyWith(

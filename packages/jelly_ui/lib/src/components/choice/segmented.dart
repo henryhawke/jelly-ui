@@ -61,7 +61,11 @@ class JellySegmented<T> extends StatelessWidget {
           semanticsMutuallyExclusive: true,
           child: Center(
             child: DefaultTextStyle.merge(
-              style: theme.typography.label,
+              style: theme.typography.label.copyWith(
+                color: selected
+                    ? theme.palette.foregroundFor(JellySemanticTone.info)
+                    : theme.surfaces.quietAction.normal.foreground,
+              ),
               child: segment.label,
             ),
           ),

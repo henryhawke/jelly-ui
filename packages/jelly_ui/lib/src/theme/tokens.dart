@@ -14,16 +14,20 @@ final class JellyPalette {
     required this.surfaceInset,
     required this.textStrong,
     required this.textMuted,
-    required this.textOnAction,
     required this.border,
     required this.focus,
     required this.focusOnDark,
     required this.shadow,
     required this.primary,
+    required this.primaryForeground,
     required this.info,
+    required this.infoForeground,
     required this.success,
+    required this.successForeground,
     required this.warning,
+    required this.warningForeground,
     required this.danger,
+    required this.dangerForeground,
     required this.disabledSurface,
     required this.disabledForeground,
   });
@@ -34,16 +38,20 @@ final class JellyPalette {
   final Color surfaceInset;
   final Color textStrong;
   final Color textMuted;
-  final Color textOnAction;
   final Color border;
   final Color focus;
   final Color focusOnDark;
   final Color shadow;
   final Color primary;
+  final Color primaryForeground;
   final Color info;
+  final Color infoForeground;
   final Color success;
+  final Color successForeground;
   final Color warning;
+  final Color warningForeground;
   final Color danger;
+  final Color dangerForeground;
   final Color disabledSurface;
   final Color disabledForeground;
 
@@ -58,6 +66,17 @@ final class JellyPalette {
     };
   }
 
+  Color foregroundFor(JellySemanticTone tone) {
+    return switch (tone) {
+      JellySemanticTone.neutral => textStrong,
+      JellySemanticTone.primary => primaryForeground,
+      JellySemanticTone.info => infoForeground,
+      JellySemanticTone.success => successForeground,
+      JellySemanticTone.warning => warningForeground,
+      JellySemanticTone.danger => dangerForeground,
+    };
+  }
+
   static JellyPalette lerp(JellyPalette a, JellyPalette b, double t) {
     return JellyPalette(
       canvas: Color.lerp(a.canvas, b.canvas, t)!,
@@ -66,16 +85,23 @@ final class JellyPalette {
       surfaceInset: Color.lerp(a.surfaceInset, b.surfaceInset, t)!,
       textStrong: Color.lerp(a.textStrong, b.textStrong, t)!,
       textMuted: Color.lerp(a.textMuted, b.textMuted, t)!,
-      textOnAction: Color.lerp(a.textOnAction, b.textOnAction, t)!,
       border: Color.lerp(a.border, b.border, t)!,
       focus: Color.lerp(a.focus, b.focus, t)!,
       focusOnDark: Color.lerp(a.focusOnDark, b.focusOnDark, t)!,
       shadow: Color.lerp(a.shadow, b.shadow, t)!,
       primary: Color.lerp(a.primary, b.primary, t)!,
+      primaryForeground:
+          Color.lerp(a.primaryForeground, b.primaryForeground, t)!,
       info: Color.lerp(a.info, b.info, t)!,
+      infoForeground: Color.lerp(a.infoForeground, b.infoForeground, t)!,
       success: Color.lerp(a.success, b.success, t)!,
+      successForeground:
+          Color.lerp(a.successForeground, b.successForeground, t)!,
       warning: Color.lerp(a.warning, b.warning, t)!,
+      warningForeground:
+          Color.lerp(a.warningForeground, b.warningForeground, t)!,
       danger: Color.lerp(a.danger, b.danger, t)!,
+      dangerForeground: Color.lerp(a.dangerForeground, b.dangerForeground, t)!,
       disabledSurface: Color.lerp(
         a.disabledSurface,
         b.disabledSurface,

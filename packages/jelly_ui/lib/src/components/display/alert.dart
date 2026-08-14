@@ -37,7 +37,12 @@ class JellyAlert extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(title, style: theme.typography.title),
+                  Text(
+                    title,
+                    style: theme.typography.title.copyWith(
+                      color: theme.palette.foregroundFor(tone),
+                    ),
+                  ),
                   SizedBox(height: theme.geometry.spacing.sm),
                   child,
                 ],

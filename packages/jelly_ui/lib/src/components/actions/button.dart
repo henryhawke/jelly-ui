@@ -11,7 +11,7 @@ class JellyButton extends StatelessWidget {
   const JellyButton({
     required this.onPressed,
     required this.child,
-    this.tone = JellySemanticTone.primary,
+    this.tone = JellySemanticTone.neutral,
     this.variant = JellyButtonVariant.solid,
     this.size = JellyControlSize.standard,
     this.loading = false,
@@ -41,20 +41,29 @@ class JellyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = JellyTheme.of(context).resolveFor(context);
     final double height = theme.geometry.heightFor(size);
+    final JellySurfaceRole role = variant == JellyButtonVariant.solid
+        ? JellySurfaceRole.action
+        : JellySurfaceRole.quietAction;
+    final recipe = theme.surfaces[role];
+    final Color foreground = loading || onPressed == null
+        ? recipe.disabled.foreground
+        : tone == JellySemanticTone.neutral
+            ? recipe.normal.foreground
+            : theme.palette.foregroundFor(tone);
     final Widget label = DefaultTextStyle.merge(
-      style: theme.typography.label,
+      style: theme.typography.label.copyWith(color: foreground),
       child: loading
           ? Text(
               loadingLabel.toUpperCase(),
-              style: theme.typography.instrumentLabel,
+              style: theme.typography.instrumentLabel.copyWith(
+                color: foreground,
+              ),
             )
           : child,
     );
     final Widget button = JellyPressableSurface(
       onPressed: loading ? null : onPressed,
-      role: variant == JellyButtonVariant.solid
-          ? JellySurfaceRole.action
-          : JellySurfaceRole.quietAction,
+      role: role,
       tone: tone,
       minimumSize: Size(0, height),
       padding: EdgeInsets.symmetric(horizontal: theme.geometry.spacing.lg),

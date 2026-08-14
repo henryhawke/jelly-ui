@@ -25,6 +25,17 @@ class JellyChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = JellyTheme.of(context).resolveFor(context);
+    final JellySemanticTone effectiveTone =
+        selected ? tone : JellySemanticTone.neutral;
+    final Color foreground = effectiveTone == JellySemanticTone.neutral
+        ? theme.surfaces.quietAction
+            .resolve(
+              selected
+                  ? const <WidgetState>{WidgetState.selected}
+                  : const <WidgetState>{},
+            )
+            .foreground
+        : theme.palette.foregroundFor(effectiveTone);
     final Widget content = Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
@@ -32,11 +43,12 @@ class JellyChip extends StatelessWidget {
           leading!,
           SizedBox(width: theme.geometry.spacing.sm),
         ],
-        DefaultTextStyle.merge(style: theme.typography.label, child: label),
+        DefaultTextStyle.merge(
+          style: theme.typography.label.copyWith(color: foreground),
+          child: label,
+        ),
       ],
     );
-    final JellySemanticTone effectiveTone =
-        selected ? tone : JellySemanticTone.neutral;
     final EdgeInsetsGeometry padding =
         EdgeInsets.symmetric(horizontal: theme.geometry.spacing.md);
     final Set<WidgetState> states = selected

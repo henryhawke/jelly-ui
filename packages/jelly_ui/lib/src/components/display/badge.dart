@@ -29,7 +29,12 @@ class JellyBadge extends StatelessWidget {
             vertical: theme.geometry.spacing.xs,
           ),
           radius: 999,
-          child: Text(label, style: theme.typography.instrumentLabel),
+          child: Text(
+            label,
+            style: theme.typography.instrumentLabel.copyWith(
+              color: theme.palette.foregroundFor(tone),
+            ),
+          ),
         ),
       ),
     );

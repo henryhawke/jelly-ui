@@ -31,7 +31,7 @@ class JellyTooltip extends StatelessWidget {
       preferBelow: preferBelow,
       triggerMode: triggerMode,
       textStyle: theme.typography.label.copyWith(
-        color: theme.palette.textOnAction,
+        color: theme.palette.focusOnDark,
       ),
       decoration: BoxDecoration(
         color: theme.palette.textStrong,
