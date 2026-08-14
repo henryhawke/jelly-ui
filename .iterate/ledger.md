@@ -6,7 +6,7 @@ Objective: replace Jelly UI's public product surface with a production-quality F
 - [done] JLY-001 — Create Dart workspace, Flutter package, morph package, and web catalog | acceptance: `flutter pub get && flutter analyze --no-fatal-infos` | evidence: passed 2026-08-14; workspace resolved 26 dependencies and analyzer reported no issues
 - [done] JLY-002 — Implement typed theme, token, recipe, morph, motion, and feedback contracts | acceptance: `flutter test packages/jelly_ui/test/theme` | evidence: 8 tests passed 2026-08-14; fatal-info analyzer clean
 - [done] JLY-003 — Port deterministic allocation-conscious membrane physics | acceptance: `flutter test packages/jelly_ui/test/physics` | evidence: 9 tests passed 2026-08-14; 60/90/120 Hz envelope and analyzer clean
-- [todo] JLY-004 — Implement shared parked scheduler, surface controller, painter, and JellySurface | acceptance: `flutter test packages/jelly_ui/test/rendering packages/jelly_ui/test/motion` | evidence: pending
+- [done] JLY-004 — Implement shared parked scheduler, surface controller, painter, and JellySurface | acceptance: `flutter test packages/jelly_ui/test/rendering packages/jelly_ui/test/motion` | evidence: 7 tests passed 2026-08-14; shared parking, mutation safety, reduced motion, repaint isolation, and analyzer clean
 - [todo] JLY-005 — Implement display and action components | acceptance: `flutter test packages/jelly_ui/test/components/display_action_test.dart` | evidence: pending
 - [todo] JLY-006 — Implement choice components | acceptance: `flutter test packages/jelly_ui/test/components/choice_test.dart` | evidence: pending
 - [todo] JLY-007 — Implement fields and value controls | acceptance: `flutter test packages/jelly_ui/test/components/fields_test.dart` | evidence: pending

@@ -41,3 +41,11 @@
 - Reduced the unmeasured web default from 240 to a provisional 144 standard samples; final quality counts remain benchmark-owned rather than API promises.
 - Acceptance passed: 9 physics tests cover geometry, typed buffers, symmetry, settling, frame-rate envelopes, resize, directionality, and non-finite recovery; analyzer is clean.
 - Note to future self: `computeProjectedSurface` mutates reusable buffers; painters must consume them synchronously and never retain point objects.
+
+## Iteration 5 — JLY-004 rendering runtime
+
+- Added one process-wide scheduler using a mutation-safe identity set; it requests one frame for all active surfaces and fully parks when the last body settles.
+- Added `JellySurfaceController`, reduced/none motion branches, a reusable cubic-path painter, deformed zero-blur shadow, external focus treatment, and repaint-isolated `JellySurface`.
+- Proved controller notifications repaint the painter without rebuilding the stable child subtree.
+- Acceptance passed: 7 motion/rendering tests and a fatal-info analyzer run.
+- Note to future self: public widgets should feed centered local coordinates into their controller and use Flutter semantics/focus outside the painter.
