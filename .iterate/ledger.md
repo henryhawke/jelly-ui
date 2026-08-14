@@ -8,8 +8,8 @@ Objective: replace Jelly UI's public product surface with a production-quality F
 - [done] JLY-003 — Port deterministic allocation-conscious membrane physics | acceptance: `flutter test packages/jelly_ui/test/physics` | evidence: 9 tests passed 2026-08-14; 60/90/120 Hz envelope and analyzer clean
 - [done] JLY-004 — Implement shared parked scheduler, surface controller, painter, and JellySurface | acceptance: `flutter test packages/jelly_ui/test/rendering packages/jelly_ui/test/motion` | evidence: 7 tests passed 2026-08-14; shared parking, mutation safety, reduced motion, repaint isolation, and analyzer clean
 - [done] JLY-005 — Implement display and action components | acceptance: `flutter test packages/jelly_ui/test/components/display_action_test.dart` | evidence: 6 tests passed 2026-08-14; actions, display primitives, semantics, keyboard, press timing, and analyzer clean
-- [todo] JLY-006 — Implement choice components | acceptance: `flutter test packages/jelly_ui/test/components/choice_test.dart` | evidence: pending
-- [todo] JLY-007 — Implement fields and value controls | acceptance: `flutter test packages/jelly_ui/test/components/fields_test.dart` | evidence: pending
+- [done] JLY-006 — Implement choice components | acceptance: `flutter test packages/jelly_ui/test/components/choice_test.dart` | evidence: 6 tests passed 2026-08-14; controlled state, tristate, semantics, disabled segments, touch targets, reduced motion, and analyzer clean
+- [doing] JLY-007 — Implement fields and value controls | acceptance: `flutter test packages/jelly_ui/test/components/fields_test.dart` | evidence: pending
 - [todo] JLY-008 — Implement disclosure and layout components | acceptance: `flutter test packages/jelly_ui/test/components/disclosure_layout_test.dart` | evidence: pending
 - [todo] JLY-009 — Implement feedback, overlay, and navigation components | acceptance: `flutter test packages/jelly_ui/test/components/feedback_overlay_navigation_test.dart` | evidence: pending
 - [todo] JLY-010 — Implement exact neobrutalist Instrument morph package | acceptance: `flutter test packages/jelly_morph_neobrutalism/test` | evidence: pending

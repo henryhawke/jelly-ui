@@ -57,6 +57,7 @@ class JellyChip extends StatelessWidget {
       role: JellySurfaceRole.quietAction,
       tone: effectiveTone,
       selected: selected,
+      semanticsSelected: selected,
       minimumSize: Size(0, theme.geometry.compactControlHeight),
       padding: padding,
       child: content,

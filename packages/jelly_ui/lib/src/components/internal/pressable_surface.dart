@@ -18,6 +18,11 @@ class JellyPressableSurface extends StatefulWidget {
     this.focusNode,
     this.autofocus = false,
     this.selected = false,
+    this.semanticsButton = true,
+    this.semanticsChecked,
+    this.semanticsToggled,
+    this.semanticsSelected,
+    this.semanticsMutuallyExclusive = false,
     super.key,
   });
 
@@ -32,6 +37,11 @@ class JellyPressableSurface extends StatefulWidget {
   final FocusNode? focusNode;
   final bool autofocus;
   final bool selected;
+  final bool semanticsButton;
+  final bool? semanticsChecked;
+  final bool? semanticsToggled;
+  final bool? semanticsSelected;
+  final bool semanticsMutuallyExclusive;
 
   @override
   State<JellyPressableSurface> createState() => _JellyPressableSurfaceState();
@@ -102,9 +112,12 @@ class _JellyPressableSurfaceState extends State<JellyPressableSurface> {
 
     Widget result = Semantics(
       container: true,
-      button: true,
+      button: widget.semanticsButton,
+      checked: widget.semanticsChecked,
+      toggled: widget.semanticsToggled,
+      inMutuallyExclusiveGroup: widget.semanticsMutuallyExclusive,
       enabled: _enabled,
-      selected: widget.selected ? true : null,
+      selected: widget.semanticsSelected,
       label: widget.semanticLabel,
       onTap: _enabled ? _activate : null,
       child: ExcludeSemantics(

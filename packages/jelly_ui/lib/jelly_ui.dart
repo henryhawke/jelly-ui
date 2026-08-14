@@ -3,6 +3,10 @@ library;
 
 export 'src/components/actions/button.dart';
 export 'src/components/actions/icon_button.dart';
+export 'src/components/choice/checkbox.dart';
+export 'src/components/choice/radio.dart';
+export 'src/components/choice/segmented.dart';
+export 'src/components/choice/switch.dart';
 export 'src/components/display/alert.dart';
 export 'src/components/display/badge.dart';
 export 'src/components/display/card.dart';

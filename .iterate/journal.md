@@ -63,3 +63,10 @@
 - **Drift:** All new UI is generic Jelly; no Fart With Friends app vocabulary or shell behavior leaked into the package.
 - **Patterns:** Semantics actions disappear if child gesture semantics are excluded without an explicit `Semantics.onTap`; keep semantic ownership at the wrapper.
 - **Regression canary:** JLY-004 motion/rendering suite remained 7/7 after the component wrapper began consuming it.
+
+## Iteration 7 — JLY-006 controlled choices
+
+- Added controlled checkbox, radio/radio-group, switch, and typed segmented controls with 48dp targets, keyboard activation, merged label semantics, and native checked/toggled flags.
+- Separated visual selection from semantic selection so checkbox/radio/switch do not incorrectly announce themselves as selected list items.
+- Acceptance passed: 6 focused choice tests and fatal-info analysis.
+- Note to future self: `MergeSemantics` still needs explicit exclusion when a custom semantic label and a visible text label coexist, otherwise assistive technology can receive duplicate names.
