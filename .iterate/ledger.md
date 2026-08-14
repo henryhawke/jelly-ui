@@ -4,7 +4,7 @@ Objective: replace Jelly UI's public product surface with a production-quality F
 
 - [done] JLY-000 — Freeze blueprint and iteration state | acceptance: `git diff --check && test -s docs/FLUTTER_BLUEPRINT.md && test -s .iterate/ledger.md && test -s .iterate/journal.md` | evidence: passed 2026-08-14; blueprint, ledger, and journal present; diff check clean
 - [done] JLY-001 — Create Dart workspace, Flutter package, morph package, and web catalog | acceptance: `flutter pub get && flutter analyze --no-fatal-infos` | evidence: passed 2026-08-14; workspace resolved 26 dependencies and analyzer reported no issues
-- [todo] JLY-002 — Implement typed theme, token, recipe, morph, motion, and feedback contracts | acceptance: `flutter test packages/jelly_ui/test/theme` | evidence: pending
+- [done] JLY-002 — Implement typed theme, token, recipe, morph, motion, and feedback contracts | acceptance: `flutter test packages/jelly_ui/test/theme` | evidence: 8 tests passed 2026-08-14; fatal-info analyzer clean
 - [todo] JLY-003 — Port deterministic allocation-conscious membrane physics | acceptance: `flutter test packages/jelly_ui/test/physics` | evidence: pending
 - [todo] JLY-004 — Implement shared parked scheduler, surface controller, painter, and JellySurface | acceptance: `flutter test packages/jelly_ui/test/rendering packages/jelly_ui/test/motion` | evidence: pending
 - [todo] JLY-005 — Implement display and action components | acceptance: `flutter test packages/jelly_ui/test/components/display_action_test.dart` | evidence: pending

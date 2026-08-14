@@ -20,3 +20,17 @@
 - Selected Dart 3.5 as the minimum because workspace resolution requires it; retained Flutter 3.22 as the provisional package floor.
 - Acceptance passed: `flutter pub get` resolved the workspace and `flutter analyze --no-fatal-infos` reported no issues.
 - Note to future self: generated Flutter 3.44 examples use Dart dot shorthands, so avoid those while the package advertises Dart 3.5.
+
+## Iteration 3 — JLY-002 typed design-system seam
+
+- Implemented one data-only `JellyMorph`, exhaustive surface roles, semantic palette/type/geometry/transition tokens, deterministic state recipes, `JellyThemeData`, and local/global theme installation.
+- Kept motion and feedback independent from visual morphs; morph data contains no builders, gestures, context, async work, or callbacks.
+- Acceptance passed: 8 theme/morph tests plus the fatal-info analyzer.
+- Note to future self: `JellyTheme.material` compiles both standard and high-contrast variants into one extension; widgets must resolve the media variant outside paint.
+
+### META after iteration 3
+
+- **Velocity:** 3 of 3 units completed; pace is steady, but component-family units may need internal slicing without expanding the ledger.
+- **Drift:** The ledger still targets the requested Flutter conversion, morph system, performance, and browser proof.
+- **Patterns:** The advertised Dart 3.5 floor catches new-language syntax early; keep full analyzer runs in every unit.
+- **Regression canary:** Re-ran JLY-002's 8 tests and JLY-001's analyzer gate; both remained green.
